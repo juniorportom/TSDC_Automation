@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<div class="container">
+  <div style="padding-top:50px; text-align:center;">
+    <h1>TSDC Automation</h1>
+    <p class="lead mb-xl-5">¡Una estrategía de pruebas te acerca a liberar soluciones con calidad!</p>
+  </div>
+   <div class="row w-100">
+       <div class="col-md-12 mx-auto">
+            <div class="row mb-3">
+               <div class="col-md-5">
+                   <h2>A que nos enfrentamos</h2>
+                 <p class="text-justify mb-3 ">Con la creciente demanda de soluciones y herramientas digitales que puedan atender las diferentes necesidades de los usuarios en cualquier ámbito (educación, salud, finanzas, etc), se vuelve una prioridad para las empresas liberar de forma oportuna servicios digitales lo mas pronto posible. Con base a lo anterior, lograr una alta calidad en los servicios digitales desplegados; se vuelve una tarea dispendiosa y cada vez mas compleja.</p>
+              </div>
+              <div class="col-md-7">
+                   <img src="{% static 'core/img/applications.jpg' %}" class="iimage-fluid" style="height: 100%; width: 80%">
+              </div>
+            </div>
+        </div>
+
+       <div class="col-md-12 mx-auto">
+            <div class="row mb-3">
+               <div class="col-md-5">
+                   <h2>Nuestro objetivo</h2>
+                 <p class="text-justify mb-3 ">TSDC Automation se centra en habilitar una serie de capacidades y funcionalidades, que le ayuden a los usuarios a diseñar y ejecutar estrategias de pruebas efectivas, que garanticen la salida de nuevos servicios con altos estándares de calidad.</p>
+              </div>
+              <div class="col-md-7">
+                   <img src="{% static 'core/img/test.png' %}" class="image-fluid" style="height: 80%; width: 80%">
+              </div>
+            </div>
+        </div>
+  </div>
+</div>
+{% endblock %}
