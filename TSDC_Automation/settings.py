@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'strategy',
 ]
 
 MIDDLEWARE = [
@@ -138,6 +139,6 @@ STATICFILES_DIRS = [
 
 # Auth redirects
 
-# LOGIN_REDIRECT_URL = 'contests'
+LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = 'home'

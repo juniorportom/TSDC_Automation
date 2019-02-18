@@ -19,6 +19,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('', include('core.urls')),
+    path('strategy/', include('strategy.urls')),
+
+    path('admin/', admin.site.urls),
     # Path de Auth
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('registration.urls')),
