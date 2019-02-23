@@ -1,0 +1,67 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{application.name}}{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="container">
+    <div class="row ">
+      <div class="card w-100 ">
+            <div class="card-body">
+              <div class="col-md-12 mx-auto">
+                <div class="row mb-3">
+                   <div class="col-md-6">
+                    <h4 class="card-title">Nombre: {{application.name}} </h4>
+                        <p><b>Creada el</b> {{application.create_at}}</p>
+                        <p class="text-justify">{{ application.description }}</p>
+                  </div>
+                  <div class="col-md-6">
+                      <h4 class="card-title">Tipo: {{application.type}} </h4>
+                      <p class="text-justify"><b>Aquitectura: </b>{{application.architecture}}</p>
+                      <p class="text-justify"><b>Stack Tecnológico: </b>{{application.developer_stack}}</p>
+                  </div>
+                </div>
+                </div>
+              <div class="col-md-12 mx-auto">
+                <div class="row mb-3">
+                   <div class="col-md-12">
+                    <p class="w-100"><b>Opciones: </b></p>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="row">
+                          <div class="col-md-3 ">
+                              <div class="w-100 mb-2">
+                                  <a class="btnn btn-full"  href="#"   ><i class="ion-ios-add-circle icon-small icon-normal"></i>Agregar Versión</a>
+                              </div>
+                          </div>
+                           <div class="col-md-3 ">
+                                <div class="w-100 mb-2">
+                                  <a class="btnn btn-ghost" id="id_application"  href="#"  onclick="return abrir_modal('{% url 'edit-application' application.id %}')" ><i class="ion-ios-filing icon-small icon-normal"></i>Editar Aplicación</a>
+                              </div>
+                          </div>
+                           <div class="col-md-3 ">
+                              <div class="w-100 mb-2">
+                                  <a class="btnn btnn-dlt" id="id_application" href="#"  onclick="return abrir_modal('{% url 'delete-application' application.id %}')" ><i class="ion-ios-trash icon-small icon-dlt"></i>Borrar Aplicación</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</main>
+    <div id="popup" class="modal fade" role="dialog">
+    </div>
+<script>
+    function abrir_modal(url)
+    {
+        $('#popup').load(url, function()
+        {
+                $(this).modal('show');
+        });
+        return false;
+    }
+</script>
+{% endblock %}
