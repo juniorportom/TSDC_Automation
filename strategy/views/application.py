@@ -25,6 +25,10 @@ class ApplicationList(ListView):
     template_name = 'TSDC/application-list.html'
     paginate_by = 20
 
+    def get_queryset(self):
+        object_list = self.model.objects.filter(user=self.request.user)
+        return object_list
+
 
 @method_decorator(login_required(), name='dispatch')
 class ApplicationEdit(UpdateView):
