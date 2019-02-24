@@ -1,5 +1,4 @@
 # coding=utf-8
-from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -8,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from strategy.models.application import Application
+from strategy.models.applicationVersion import ApplicationVersion
 from strategy.forms.application import ApplicationForm
 
 
@@ -42,6 +42,11 @@ class ApplicationEdit(UpdateView):
 class ApplicationDetail(DetailView):
     model = Application
     template_name = 'TSDC/application-detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['versions'] = ApplicationVersion.objects.filter(application=self.object)
+        return context
 
 
 @method_decorator(login_required(), name='dispatch')

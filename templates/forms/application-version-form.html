@@ -1,0 +1,34 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        {% if object %}
+            <form role="form" action="{% url 'edit-application-version' application_id object.pk %}" method="post">
+        {% else %}
+            <form role="form" action="{% url 'create-application-version' application_id %}" method="post">
+        {% endif %}
+        <div class="modal-header">
+             <h3 class="close align-content-center">Formulario versión aplicación</h3>
+            <button type="button" class="close btn btn-danger" data-dismiss="modal">
+                <i class="ion-ios-close"></i></button>
+        </div>
+        <div class="modal-body">
+            {% csrf_token %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        {{ form.as_p }}
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="modal-footer btn-toolbar">
+                <button type="submit"id="id_grabar" class="btn-b btn-bf pull-right">
+                    <i class="ion-ios-save icon-small icon-normal"></i>Guardar
+                </button>
+                <button type="submit" class="btn-b btn-bg pull-right" data-dismiss="modal"
+                        style="margin-left: 5px">
+                    <i class="ion-ios-power icon-small icon-normal"></i>Cancelar
+                </button>
+            </div>
+                    </div>
+            </form>
+    </div>
+</div>
