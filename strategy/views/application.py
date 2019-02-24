@@ -18,6 +18,10 @@ class ApplicationCreate(CreateView):
     template_name = 'forms/application-form.html'
     success_url = reverse_lazy('application-list')
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 @method_decorator(login_required(), name='dispatch')
 class ApplicationList(ListView):

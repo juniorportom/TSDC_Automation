@@ -11,7 +11,7 @@ class ApplicationVersion(models.Model):
     # build_package = models.CharField(max_length=250)
 
     def __str__(self):
-        return self.application.name + '/' + self.version
+        return self.application.name + '/V.-' + self.version
 
     class Meta:
         verbose_name = "version"

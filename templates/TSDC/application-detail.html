@@ -11,20 +11,23 @@
                 <div class="row mb-3">
                    <div class="col-md-6">
                     <h4 class="card-title">Nombre: {{application.name}} </h4>
-                        <p><b>Creada el</b> {{application.create_at}}</p>
+                        <h6><b>Creada el</b> {{application.create_at}}</h6>
+                       <h6><b>Descripción:</b></h6>
                         <p class="text-justify">{{ application.description }}</p>
                   </div>
                   <div class="col-md-6">
-                      <h4 class="card-title">Tipo: {{application.type}} </h4>
-                      <p class="text-justify"><b>Aquitectura: </b>{{application.architecture}}</p>
-                      <p class="text-justify"><b>Stack Tecnológico: </b>{{application.developer_stack}}</p>
+                      <h4 class="card-title"><b>Tipo:</b> {{application.type}} </h4>
+                      <h6><b>Aquitectura: </b></h6>
+                      <p class="text-justify">{{application.architecture}}</p>
+                      <h6><b>Stack Tecnológico: </b></h6>
+                      <p class="text-justify">{{application.developer_stack}}</p>
                   </div>
                 </div>
                 </div>
               <div class="col-md-12 mx-auto">
                 <div class="row mb-3">
                    <div class="col-md-12">
-                    <p class="w-100"><b>Opciones: </b></p>
+                    <h6 class="w-100"><b>Opciones: </b></h6>
                   </div>
                   <div class="col-md-12">
                       <div class="row">
