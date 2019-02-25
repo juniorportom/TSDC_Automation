@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
     <!-- Estilos -->
+    <link href="https://unpkg.com/ionicons@4.4.4/dist/css/ionicons.min.css" rel="stylesheet" />
     <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
     <link href="http://vjs.zencdn.net/7.0/video-js.min.css" rel="stylesheet">
@@ -26,11 +27,17 @@
           <div class="collapse navbar-collapse" id="ned">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+                <a class="nav-link" href="{% url 'home' %}"><i class="ion-ios-home icon-small"></i>Inicio</a>
               </li>
               {% if request.user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'create-application' %}">Aplicaciones</a>
+                <a class="nav-link" href="{% url 'application-list' %}"><i class="ion-ios-apps icon-small"></i>Aplicaciones</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'test-strategy-list' %}"><i class="ion-ios-business icon-small"></i>Estrategias</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="ion-ios-stats icon-small"></i>Tablero</a>
               </li>
               {% endif %}
             </ul>
@@ -38,18 +45,23 @@
               {% if not request.user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'signup' %}">
-                  Registrarse
+                  <i class="ion-ios-menu icon-small"></i>Registrarse
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'login' %}">
-                  Acceder
+                  <i class="ion-ios-log-in icon-small"></i>Acceder
                 </a>
               </li>
               {% else %}
               <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="ion-ios-contact icon-small"></i>{{ request.user.username }}
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">
-                  Salir
+                  <i class="ion-ios-log-out icon-small"></i>Salir
                 </a>
               </li>
               {% endif %}

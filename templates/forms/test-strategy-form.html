@@ -1,12 +1,12 @@
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         {% if object %}
-            <form role="form" action="{% url 'edit-application' object.pk %}" method="post">
+            <form role="form" action="{% url 'edit-test-strategy' object.pk %}" method="post">
         {% else %}
-            <form role="form" action="{% url 'create-application' %}" method="post">
+            <form role="form" action="{% url 'create-test-strategy' %}" method="post">
         {% endif %}
         <div class="modal-header">
-             <h3 class="close align-content-center">Formulario aplicación</h3>
+             <h3 class="close align-content-center">Formulario estrategia pruebas</h3>
             <button type="button" class="close btn btn-danger" data-dismiss="modal">
                 <i class="ion-ios-close"></i></button>
 

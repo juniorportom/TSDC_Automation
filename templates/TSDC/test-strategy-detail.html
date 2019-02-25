@@ -1,0 +1,67 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{application.name}}{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="container">
+    <div class="row ">
+      <div class="card w-100 ">
+            <div class="card-body">
+              <div class="col-md-12 mx-auto">
+                <div class="row mb-3">
+                   <div class="col-md-6">
+                    <h4 class="card-title"><b>Nombre:</b> {{strategy.name}} </h4>
+                        <h6><b>Creada el</b> {{strategy.create_at}}</h6>
+                        <h6><b>Aplicación/Versión: </b> {{ strategy.application_version }}</h6>
+                  </div>
+                  <div class="col-md-6">
+                      <h4 class="w-100"><b>Nivel de pruebas: </b>{{ strategy.get_test_level_display }}</h4>
+                      <h6><b>Objetivo: </b></h6>
+                      <p class="text-justify">{{strategy.objective}}</p>
+                  </div>
+                </div>
+                </div>
+              <div class="col-md-12 mx-auto">
+                <div class="row mb-3">
+                   <div class="col-md-12">
+                    <h6 class="w-100"><b>Opciones: </b></h6>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="row">
+                          <div class="col-md-3 ">
+                              <div class="w-100 mb-2">
+                                  <a class="btnn btn-full" id="id_test_strategy" href="#"  ><i class="ion-ios-add-circle icon-small icon-normal"></i>Agregar Prueba</a>
+                              </div>
+                          </div>
+                           <div class="col-md-3 ">
+                                <div class="w-100 mb-2">
+                                  <a class="btnn btn-ghost" id="id_test_strategy"  href="#"  onclick="return abrir_modal('{% url 'edit-test-strategy' strategy.id %}')" ><i class="ion-ios-filing icon-small icon-normal"></i>Editar Estrategia</a>
+                              </div>
+                          </div>
+                           <div class="col-md-3 ">
+                              <div class="w-100 mb-2">
+                                  <a class="btnn btnn-dlt" id="id_test_strategy" href="#"  onclick="return abrir_modal('{% url 'delete-test-strategy' strategy.id %}')" ><i class="ion-ios-trash icon-small icon-dlt"></i>Borrar Estrategia</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</main>
+    <div id="popup" class="modal fade" role="dialog">
+    </div>
+<script>
+    function abrir_modal(url)
+    {
+        $('#popup').load(url, function()
+        {
+                $(this).modal('show');
+        });
+        return false;
+    }
+</script>
+{% endblock %}
