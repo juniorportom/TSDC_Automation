@@ -1,0 +1,71 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        {% if object %}
+            <form role="form" action="{% url 'edit-test-plan' strategy_id object.pk %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {% else %}
+            <form role="form" action="{% url 'create-test-plan' strategy_id %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {% endif %}
+        <div class="modal-header">
+             <h3 class="close align-content-center">Formulario de plan de prueba</h3>
+            <button type="button" class="close btn btn-danger" data-dismiss="modal">
+                <i class="ion-ios-close"></i></button>
+        </div>
+        <div class="modal-body">
+            {% csrf_token %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="fieldWrapper">
+                        {{ form.description.errors }}
+                        {{ form.description.label_tag }}
+                        {{ form.description }}
+                    </div>
+                    <div class="fieldWrapper">
+                        {{ form.technique_test.errors }}
+                        {{ form.technique_test.label_tag }}
+                        {{ form.technique_test }}
+                    </div>
+                    {% if application.is_mobile %}
+                        <div class="fieldWrapper">
+                            {{ form.mobile_so.errors }}
+                            {{ form.mobile_so.label_tag }}
+                            {{ form.mobile_so }}
+                        </div>
+                    {% else %}
+                        <div class="fieldWrapper">
+                            {{ form.browser.errors }}
+                            {{ form.browser.label_tag }}
+                            {{ form.browser }}
+                        </div>
+                    {% endif %}
+                    <div class="fieldWrapper">
+                        {{ form.script_file.errors }}
+                        {{ form.script_file.label_tag }}
+                        {{ form.script_file }}
+                    </div>
+                    <div class="fieldWrapper">
+                        {{ form.nombre.errors }}
+                        {{ form.nombre.label_tag }}
+                        {{ form.execution_date }}
+                    </div>
+                    <div class="fieldWrapper">
+                        {{ form.iterations.errors }}
+                        {{ form.iterations.label_tag }}
+                        {{ form.iterations }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="modal-footer btn-toolbar">
+                <button type="submit"id="id_grabar" class="btn-b btn-bf pull-right">
+                    <i class="ion-ios-save icon-small icon-normal"></i>Guardar
+                </button>
+                <button type="submit" class="btn-b btn-bg pull-right" data-dismiss="modal"
+                        style="margin-left: 5px">
+                    <i class="ion-ios-power icon-small icon-normal"></i>Cancelar
+                </button>
+            </div>
+                    </div>
+            </form>
+    </div>
+</div>

@@ -8,4 +8,5 @@ class Browser(models.Model):
         return self.name
 
     class Meta:
+        verbose_name = "browser"
         verbose_name_plural = 'browsers'

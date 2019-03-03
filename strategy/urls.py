@@ -2,6 +2,7 @@ from django.urls import path
 from strategy.views.application import ApplicationCreate, ApplicationList, ApplicationEdit, ApplicationDelete, ApplicationDetail
 from strategy.views.applicationVersion import ApplicationVersionCreate, ApplicationVersionEdit, ApplicationVersionDelete
 from strategy.views.testStrategy import TestStrategyCreate, TestStrategyList, TestStrategyEdit, TestStrategyDelete, TestStrategyDetail
+from strategy.views.testPlan import TestPlanCreate, TestPlanEdit, TestPlanDelete
 
 urlpatterns = [
     path('create-application/', ApplicationCreate.as_view(), name='create-application'),
@@ -18,4 +19,8 @@ urlpatterns = [
     path('edit-test-strategy/<int:pk>', TestStrategyEdit.as_view(), name='edit-test-strategy'),
     path('delete-test-strategy/<int:pk>', TestStrategyDelete.as_view(), name='delete-test-strategy'),
     path('detail-test-strategy/<int:pk>', TestStrategyDetail.as_view(), name='detail-test-strategy'),
+
+    path('create-test-plan/<int:strategy_id>', TestPlanCreate.as_view(), name='create-test-plan'),
+    path('edit-test-plan/<int:strategy_id>/<int:pk>', TestPlanEdit.as_view(), name='edit-test-plan'),
+    path('delete-test-plan/<int:strategy_id>/<int:pk>', TestPlanDelete.as_view(), name='delete-test-plan'),
 ]
