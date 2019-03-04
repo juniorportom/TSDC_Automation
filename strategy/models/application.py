@@ -20,3 +20,12 @@ class Application(models.Model):
         verbose_name = "application"
         verbose_name_plural = "applications"
         ordering = ['-create_at']
+
+    def is_mobile(self):
+        if self.type.name == 'Mobile':
+            return True
+        return False
+
+
+
+

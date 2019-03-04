@@ -8,4 +8,5 @@ class Tool(models.Model):
         return self.name
 
     class Meta:
+        verbose_name = "tool"
         verbose_name_plural = 'tools'

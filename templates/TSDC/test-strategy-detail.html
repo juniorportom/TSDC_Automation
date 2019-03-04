@@ -1,6 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
-{% block title %}{{application.name}}{% endblock %}
+{% block title %}{{strategy.name}}{% endblock %}
 {% block content %}
 <main role="main">
   <div class="container">
@@ -30,7 +30,7 @@
                       <div class="row">
                           <div class="col-md-3 ">
                               <div class="w-100 mb-2">
-                                  <a class="btnn btn-full" id="id_test_strategy" href="#"  ><i class="ion-ios-add-circle icon-small icon-normal"></i>Agregar Prueba</a>
+                                  <a class="btnn btn-full" id="id_test_strategy" href="#" onclick="return abrir_modal('{% url 'create-test-plan' strategy.id %}')" ><i class="ion-ios-add-circle icon-small icon-normal"></i>Agregar Prueba</a>
                               </div>
                           </div>
                            <div class="col-md-3 ">
@@ -51,17 +51,101 @@
     </div>
     </div>
   </div>
+    {% if plans %}
+    <h5 class="text-center mt-3 mb-3">Versiones registradas de la aplicación</h5>
+    <div class="row text-center bg-table">
+      <table class="col-md-30 w-100 entradas table table-striped table-bordered">
+        <thead class="text-center">
+          <th>Descripción</th>
+          <th>Estrategia</th>
+          <th>Técnica</th>
+          {% if strategy.application.is_mobile %}
+              <th>Mobile S.O.</th>
+          {% else %}
+            <th>Navegador</th>
+          {% endif %}
+          <th>Script</th>
+          <th>Ejecutar el</th>
+          <th>Creado el</th>
+          <th>Iteraciones</th>
+          <th>Opciones</th>
+        </thead>
+        <tbody>
+          {% for plan in plans|dictsort:"create_at" reversed %}
+          <tr>
+            <td>
+                <div class="w-100">
+                    {{ plan.description }}
+                </div>
+            </td>
+            <td>
+                <div class="w-100">
+                    {{ plan.test_strategy }}
+                </div>
+            </td>
+            <td>
+                <div class="w-100">
+                    {{ plan.technique_test }}
+                </div>
+            </td>
+            {% if strategy.application.is_mobile %}
+                <td>
+                    <div class="w-100">
+                        {{ plan.mobile_so }}
+                    </div>
+                </td>
+            {% else %}
+                <td>
+                    <div class="w-100">
+                        {{ plan.browser }}
+                    </div>
+                </td>
+            {% endif %}
+            <td>
+                <div class="w-100">
+                    {{ plan.script_name}}
+                </div>
+            </td>
+            <td>
+                <div class="w-100">
+                    {{ plan.execution_date|date:'Y-m-d H:i' }}
+                </div>
+            </td>
+            <td>
+                <div class="w-100">
+                    {{ plan.create_at|date:'Y-m-d H:i' }}
+                </div>
+            </td>
+            <td>
+                <div class="w-100">
+                    {{ plan.iterations }}
+                </div>
+            </td>
+            <td>
+                <div class="w-100 mb-2">
+                    <a class="btnn btn-full" id="id_test_strategy"  href="#"  onclick="return abrir_modal('{% url 'edit-test-plan' strategy.id plan.id %}')" ><i class="ion-ios-filing icon-small icon-normal"></i>Editar</a>
+                </div>
+                <div class="w-100">
+                    <a class="btnn btnn-dlt" id="id_test_strategy" href="#"  onclick="return abrir_modal('{% url 'delete-test-plan' strategy.id plan.id %}')" ><i class="ion-ios-trash icon-small icon-dlt"></i>Borrar</a>
+                </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+   {% endif %}
 </main>
     <div id="popup" class="modal fade" role="dialog">
-    </div>
+</div>
 <script>
-    function abrir_modal(url)
-    {
-        $('#popup').load(url, function()
-        {
-                $(this).modal('show');
-        });
-        return false;
-    }
+function abrir_modal(url)
+{
+    $('#popup').load(url, function()
+{
+    $(this).modal('show');
+});
+    return false;
+}
 </script>
 {% endblock %}

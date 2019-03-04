@@ -4,11 +4,12 @@ from strategy.models.tool import Tool
 
 class TechniqueTest(models.Model):
     name = models.CharField(max_length=200)
-    type = models.ForeignKey(Tool, on_delete=models.CASCADE)
+    tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
     available = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name + '/' + self.version
+        return self.name + ' / ' + self.tool.name
 
     class Meta:
-        verbose_name_plural = 'mobiles_so'
+        verbose_name = "technique"
+        verbose_name_plural = 'techniques'

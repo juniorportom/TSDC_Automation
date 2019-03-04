@@ -8,4 +8,5 @@ class ApplicationType(models.Model):
         return self.name
 
     class Meta:
+        verbose_name = "type"
         verbose_name_plural = 'types'

@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
-
+from strategy.models.testPlan import TestPlan
 from strategy.models.testStrategy import TestStrategy
 from strategy.forms.testStrategy import TestStrategyForm
 
@@ -48,10 +48,10 @@ class TestStrategyDetail(DetailView):
     context_object_name = 'strategy'
     template_name = 'TSDC/test-strategy-detail.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['versions'] = ApplicationVersion.objects.filter(application=self.object)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['plans'] = TestPlan.objects.filter(test_strategy=self.object)
+        return context
 
 
 @method_decorator(login_required(), name='dispatch')

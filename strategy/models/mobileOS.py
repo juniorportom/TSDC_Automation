@@ -9,4 +9,5 @@ class MobileSO(models.Model):
         return self.name + '/' + self.version
 
     class Meta:
+        verbose_name = "mobile"
         verbose_name_plural = 'mobiles'

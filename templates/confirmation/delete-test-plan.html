@@ -1,0 +1,24 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+                <h3 class="close align-content-center">Eliminar plan de prueba</h3>
+            <button type="button" class="close btn btn-danger" data-dismiss="modal">
+                <i class="ion-ios-close"></i></button>
+            </div>
+            <div class="modal-body">
+                <p class="lead">¿Está seguro de eliminar la versión: {{ object.description }}?</p>
+            </div>
+        <form role="form" action="{% url 'delete-test-plan' strategy_id object.id %}" method="post" enctype="multipart/form-data" novalidate="novalidate">
+            {% csrf_token %}
+            <div class="modal-footer btn-toolbar">
+                <button type="submit" class="btn-b btn-bf pull-right">
+                    <span class="glyphicon glyphicon-save"></span> Eliminar
+                </button>
+                <button type="submit" class="btn-b btn-bg pull-right" data-dismiss="modal"
+                        style="margin-left: 5px">
+                    <span class="glyphicon glyphicon-remove"></span> Cancelar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
