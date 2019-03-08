@@ -11,3 +11,5 @@ start.sh
 *.pyc
 db.sqlite3
 media
+.start.sh.swp
+databasesql
