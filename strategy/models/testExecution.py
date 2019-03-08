@@ -28,5 +28,5 @@ class TestExecution(models.Model):
         return self.report_file.name.replace('reports/', '')
 
     def get_absolute_report_url(self):
-        # return 'https://s3.us-east-2.amazonaws.com/tsdc-automation.media/'+str(self.script_file.name)
-        return self.report_file.url
+        return 'https://s3.us-east-2.amazonaws.com/tsdc-automation.media/'+str(self.report_file.name)
+        # return self.report_file.url
