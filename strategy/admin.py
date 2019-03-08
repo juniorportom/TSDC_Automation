@@ -8,6 +8,7 @@ from strategy.models.techniqueTest import TechniqueTest
 from strategy.models.applicationVersion import ApplicationVersion
 from strategy.models.testStrategy import TestStrategy
 from strategy.models.testPlan import TestPlan
+from strategy.models.testExecution import TestExecution
 
 # Register your models here.
 admin.site.register(ApplicationType)
@@ -19,3 +20,4 @@ admin.site.register(TechniqueTest)
 admin.site.register(ApplicationVersion)
 admin.site.register(TestStrategy)
 admin.site.register(TestPlan)
+admin.site.register(TestExecution)
