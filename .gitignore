@@ -4,6 +4,7 @@ strategy/models/__pycache__/
 strategy/forms/__pycache__/
 strategy/views/__pycache__/
 start.sh
+startAWS.sh
 .env
 /media
 *.log
