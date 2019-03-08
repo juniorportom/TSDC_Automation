@@ -105,6 +105,9 @@
                 <div class="w-100">
                     {{ plan.script_name}}
                 </div>
+                <div class="w-100 mt-1">
+                    <a class="btnn btn-full" href="{{ plan.get_absolute_script_url}}" download><i class="ion-ios-cloud-download icon-small"></i>Descargar</a>
+                </div>
             </td>
             <td>
                 <div class="w-100">
@@ -119,10 +122,19 @@
             <td>
                 <div class="w-100">
                     {{ plan.iterations }}
+                    <div class="w-100 mt-1">
+                        {% if plan.status == 'R' %}
+                        <span class="span_form s_reg">{{ plan.get_status_display }}</span>
+                        {% elif plan.status == 'P' %}
+                            <span class="span_form s_pro">{{ plan.get_status_display }}</span>
+                        {% elif plan.status == 'E' %}
+                            <span class="span_form s_eje">{{ plan.get_status_display }}</span>
+                        {% endif %}
+                    </div>
                 </div>
             </td>
             <td>
-                <div class="w-100 mb-2">
+                <div class="w-100 mb-1">
                     <a class="btnn btn-full" id="id_test_strategy"  href="#"  onclick="return abrir_modal('{% url 'edit-test-plan' strategy.id plan.id %}')" ><i class="ion-ios-filing icon-small icon-normal"></i>Editar</a>
                 </div>
                 <div class="w-100">

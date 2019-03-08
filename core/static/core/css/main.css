@@ -232,3 +232,21 @@ a:active {
     margin-left: 5px;
     margin-right: 5px;
 }
+
+.span_form{
+    border-radius: 5px;
+    padding: 5% 10%;
+    color: #fff;
+}
+
+.s_reg{
+    background-color: #3867d6;
+}
+
+.s_pro{
+    background-color: #fd9644;
+}
+
+.s_eje{
+    background-color: #0fb9b1;
+}
