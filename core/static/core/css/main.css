@@ -80,7 +80,7 @@ footer p {
 input[type=submit] {
     display: inline-block;
     padding: 5px 15px;
-    font-size: 90%;
+    font-size: 70%;
     text-decoration: none;
     border-radius: 200px;
     color: #3d3d3d;
@@ -237,6 +237,7 @@ a:active {
     border-radius: 5px;
     padding: 5% 10%;
     color: #fff;
+    font-size: 70%;
 }
 
 .s_reg{

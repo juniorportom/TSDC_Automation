@@ -102,12 +102,14 @@
                 </td>
             {% endif %}
             <td>
+                {% if plan.script_file %}
                 <div class="w-100">
                     {{ plan.script_name}}
                 </div>
                 <div class="w-100 mt-1">
                     <a class="btnn btn-full" href="{{ plan.get_absolute_script_url}}" download><i class="ion-ios-cloud-download icon-small"></i>Descargar</a>
                 </div>
+                {% endif %}
             </td>
             <td>
                 <div class="w-100">
