@@ -3,6 +3,7 @@ from strategy.views.application import ApplicationCreate, ApplicationList, Appli
 from strategy.views.applicationVersion import ApplicationVersionCreate, ApplicationVersionEdit, ApplicationVersionDelete
 from strategy.views.testStrategy import TestStrategyCreate, TestStrategyList, TestStrategyEdit, TestStrategyDelete, TestStrategyDetail
 from strategy.views.testPlan import TestPlanCreate, TestPlanEdit, TestPlanDelete
+from strategy.views.applicationScript import ApplicationScriptCreate, ApplicationScriptEdit, ApplicationScriptDelete
 
 urlpatterns = [
     path('create-application/', ApplicationCreate.as_view(), name='create-application'),
@@ -23,4 +24,8 @@ urlpatterns = [
     path('create-test-plan/<int:strategy_id>', TestPlanCreate.as_view(), name='create-test-plan'),
     path('edit-test-plan/<int:strategy_id>/<int:pk>', TestPlanEdit.as_view(), name='edit-test-plan'),
     path('delete-test-plan/<int:strategy_id>/<int:pk>', TestPlanDelete.as_view(), name='delete-test-plan'),
+
+    path('create-application-script/<int:application_id>', ApplicationScriptCreate.as_view(), name='create-application-script'),
+    path('edit-application-script/<int:application_id>/<int:pk>', ApplicationScriptEdit.as_view(), name='edit-application-script'),
+    path('delete-application-script/<int:application_id>/<int:pk>', ApplicationScriptDelete.as_view(), name='delete-application-script'),
 ]

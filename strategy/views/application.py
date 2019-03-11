@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 
 from strategy.models.application import Application
 from strategy.models.applicationVersion import ApplicationVersion
+from strategy.models.applicationScript import ApplicationScript
 from strategy.forms.application import ApplicationForm
 
 
@@ -50,6 +51,7 @@ class ApplicationDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['versions'] = ApplicationVersion.objects.filter(application=self.object)
+        context['scripts'] = ApplicationScript.objects.filter(application=self.object)
         return context
 
 

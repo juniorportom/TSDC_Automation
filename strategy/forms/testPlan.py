@@ -11,7 +11,7 @@ Formulario para registro de un plan de pruebas
 class TestPlanForm(forms.ModelForm):
     class Meta:
         model = TestPlan
-        fields = ['description', 'technique_test', 'browser', 'mobile_so', 'script_file', 'execution_date', 'iterations',]
+        fields = ['description', 'technique_test', 'browser', 'mobile_so', 'script_file', 'execution_date', 'iterations']
         labels = {
             'description': _("Descripción"),
             'technique_test': _("Técnica de pruebas"),

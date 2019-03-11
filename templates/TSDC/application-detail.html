@@ -36,6 +36,11 @@
                                   <a class="btnn btn-full" id="id_application" href="#"  onclick="return abrir_modal('{% url 'create-application-version' application.id %}')" ><i class="ion-ios-add-circle icon-small icon-normal"></i>Agregar Versión</a>
                               </div>
                           </div>
+                          <div class="col-md-3 ">
+                              <div class="w-100 mb-2">
+                                  <a class="btnn btn-full" id="id_application" href="#"  onclick="return abrir_modal('{% url 'create-application-script' application.id %}')" ><i class="ion-ios-add-circle icon-small icon-normal"></i>Agregar Script</a>
+                              </div>
+                          </div>
                            <div class="col-md-3 ">
                                 <div class="w-100 mb-2">
                                   <a class="btnn btn-ghost" id="id_application"  href="#"  onclick="return abrir_modal('{% url 'edit-application' application.id %}')" ><i class="ion-ios-filing icon-small icon-normal"></i>Editar Aplicación</a>
@@ -59,7 +64,7 @@
               <table class="col-md-20 w-100 entradas table table-striped table-bordered">
                 <thead class="text-center">
                   <th>Versión</th>
-                  <th class="w-25">Repositorio</th>
+                  <th>Repositorio</th>
                   <th>Regitrada el</th>
                   <th>Opciones</th>
                 </thead>
@@ -72,6 +77,42 @@
                     <td>
                         <a class="btnn btn-full" id="id_application"  href="#"  onclick="return abrir_modal('{% url 'edit-application-version' application.id version_app.id %}')" ><i class="ion-ios-filing icon-small icon-normal"></i>Editar</a>
                         <a class="btnn btnn-dlt" id="id_application" href="#"  onclick="return abrir_modal('{% url 'delete-application-version' application.id version_app.id %}')" ><i class="ion-ios-trash icon-small icon-dlt"></i>Borrar</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+           {% endif %}
+
+        {% if scripts %}
+            <h5 class="text-center mt-3 mb-3">Scripts de pruebas registrados para la aplicación</h5>
+            <div class="row text-center">
+              <table class="col-md-20 w-100 entradas table table-striped table-bordered">
+                <thead class="text-center">
+                  <th>Nombre</th>
+                  <th>Script</th>
+                  <th>Técnica</th>
+                  <th>Regitrada el</th>
+                  <th>Opciones</th>
+                </thead>
+                <tbody>
+                  {% for script in scripts|dictsort:"create_at" reversed %}
+                  <tr>
+                    <td>{{ script.name }}</td>
+                    <td>
+                        <div class="w-100 ">
+                            {{ script.script_name }}
+                        </div>
+                        <div class="w-100 mt-1">
+                            <a class="btnn btn-full" href="{{ script.get_absolute_script_url}}" download><i class="ion-ios-cloud-download icon-small"></i>Descargar</a>
+                        </div>
+                    </td>
+                    <td>{{ script.technique_test }}</td>
+                    <td>{{ script.create_at|date:'Y-m-d H:i' }}</td>
+                    <td>
+                        <a class="btnn btn-full" id="id_application"  href="#"  onclick="return abrir_modal('{% url 'edit-application-script' application.id script.id %}')" ><i class="ion-ios-filing icon-small icon-normal"></i>Editar</a>
+                        <a class="btnn btnn-dlt" id="id_application" href="#"  onclick="return abrir_modal('{% url 'delete-application-script' application.id script.id %}')" ><i class="ion-ios-trash icon-small icon-dlt"></i>Borrar</a>
                     </td>
                   </tr>
                   {% endfor %}
