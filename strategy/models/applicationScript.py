@@ -24,7 +24,7 @@ class ApplicationScript(models.Model):
     create_at = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
-        return self.name
+        return self.name + ' - ' + self.technique_test.__str__()
 
     def script_name(self):
         name = self.script_file.name.split('/')

@@ -20,6 +20,7 @@ class Application(models.Model):
         verbose_name = "application"
         verbose_name_plural = "applications"
         ordering = ['-create_at']
+        unique_together = ('name', 'type')
 
     def is_mobile(self):
         if self.type.name == 'Mobile':

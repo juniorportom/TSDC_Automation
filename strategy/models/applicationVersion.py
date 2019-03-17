@@ -13,7 +13,11 @@ class ApplicationVersion(models.Model):
     def __str__(self):
         return self.application.name + '/V.-' + self.version
 
+    def get_version_id(self):
+        self.id
+
     class Meta:
         verbose_name = "version"
         verbose_name_plural = "versions"
         ordering = ['-create_at']
+        unique_together = ('version', 'url_repository')

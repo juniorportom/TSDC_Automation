@@ -251,3 +251,9 @@ a:active {
 .s_eje{
     background-color: #0fb9b1;
 }
+
+form li {
+    margin-left: 40px;
+    list-style: none;
+    border-bottom: 2px solid transparent;
+}

@@ -14,3 +14,4 @@ db.sqlite3
 media
 .start.sh.swp
 databasesql
+taskProgTets.py

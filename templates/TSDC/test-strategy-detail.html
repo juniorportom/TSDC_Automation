@@ -52,19 +52,18 @@
     </div>
   </div>
     {% if plans %}
-    <h5 class="text-center mt-3 mb-3">Versiones registradas de la aplicación</h5>
+    <h5 class="text-center mt-3 mb-3">Planes de pruebas registrados</h5>
     <div class="row text-center bg-table">
       <table class="col-md-30 w-100 entradas table table-striped table-bordered">
         <thead class="text-center">
           <th>Descripción</th>
           <th>Estrategia</th>
-          <th>Técnica</th>
-          {% if strategy.application.is_mobile %}
-              <th>Mobile S.O.</th>
+          {% if application.type.name == 'Mobile' %}
+              <th>Móviles S.O.</th>
           {% else %}
-            <th>Navegador</th>
+            <th>Navegadores</th>
           {% endif %}
-          <th>Script</th>
+          <th>Scripts</th>
           <th>Ejecutar el</th>
           <th>Creado el</th>
           <th>Iteraciones</th>
@@ -83,33 +82,32 @@
                     {{ plan.test_strategy }}
                 </div>
             </td>
-            <td>
-                <div class="w-100">
-                    {{ plan.technique_test }}
-                </div>
-            </td>
-            {% if strategy.application.is_mobile %}
+            {% if application.type.name == 'Mobile' %}
                 <td>
                     <div class="w-100">
                         {{ plan.mobile_so }}
+                        {% for mobile in plan.mobile_list %}
+                            {{ mobile }}
+                        {% endfor %}
                     </div>
                 </td>
             {% else %}
                 <td>
                     <div class="w-100">
-                        {{ plan.browser }}
+                        {% for browser in plan.browser_list %}
+                            {{ browser }}
+                        {% endfor %}
                     </div>
                 </td>
             {% endif %}
             <td>
-                {% if plan.script_file %}
+            {% if plan.script_list %}
                 <div class="w-100">
-                    {{ plan.script_name}}
+                    {% for script in plan.script_list %}
+                        {{ script }}
+                    {% endfor %}
                 </div>
-                <div class="w-100 mt-1">
-                    <a class="btnn btn-full" href="{{ plan.get_absolute_script_url}}" download><i class="ion-ios-cloud-download icon-small"></i>Descargar</a>
-                </div>
-                {% endif %}
+            {% endif %}
             </td>
             <td>
                 <div class="w-100">

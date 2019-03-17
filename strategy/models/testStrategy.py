@@ -21,6 +21,10 @@ class TestStrategy(models.Model):
     def __str__(self):
         return self.name
 
+    def get_application_type(self):
+        print('En el modelo: ' + self.application_version.application.type)
+        return self.application_version.application.type
+
     class Meta:
         verbose_name = "strategy"
         verbose_name_plural = "strategies"

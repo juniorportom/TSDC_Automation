@@ -13,3 +13,4 @@ class TechniqueTest(models.Model):
     class Meta:
         verbose_name = "technique"
         verbose_name_plural = 'techniques'
+        unique_together = ('name', 'tool')

@@ -11,3 +11,4 @@ class MobileSO(models.Model):
     class Meta:
         verbose_name = "mobile"
         verbose_name_plural = 'mobiles'
+        unique_together = ('name', 'version')
