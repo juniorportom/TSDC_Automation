@@ -28,15 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# AWS_DEFAULT_ACL = os.environ.get('AWS_DEFAULT_ACL')
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'ContentType': 'application/force-download',
-#     'ContentDisposition': 'attachment'
-# }
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_DEFAULT_ACL = os.environ.get('AWS_DEFAULT_ACL')
+AWS_S3_OBJECT_PARAMETERS = {
+    'ContentType': 'application/force-download',
+    'ContentDisposition': 'attachment'
+}
 
 
 # Application definition
@@ -152,5 +152,5 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 # Media Files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/files/'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_URL = '/files/'

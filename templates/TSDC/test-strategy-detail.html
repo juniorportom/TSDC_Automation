@@ -134,12 +134,14 @@
                 </div>
             </td>
             <td>
+                {% if plan.status != 'P' %}
                 <div class="w-100 mb-1">
                     <a class="btnn btn-full" id="id_test_strategy"  href="#"  onclick="return abrir_modal('{% url 'edit-test-plan' strategy.id plan.id %}')" ><i class="ion-ios-filing icon-small icon-normal"></i>Editar</a>
                 </div>
                 <div class="w-100">
                     <a class="btnn btnn-dlt" id="id_test_strategy" href="#"  onclick="return abrir_modal('{% url 'delete-test-plan' strategy.id plan.id %}')" ><i class="ion-ios-trash icon-small icon-dlt"></i>Borrar</a>
                 </div>
+                {% endif %}
             </td>
           </tr>
           {% endfor %}

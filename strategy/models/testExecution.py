@@ -1,6 +1,10 @@
 from django.db import models
 from datetime import datetime
 from strategy.models.testPlan import TestPlan
+from strategy.models.applicationScript import ApplicationScript
+from strategy.models.browser import Browser
+from strategy.models.mobileOS import MobileSO
+from django.contrib.auth.models import User
 
 
 class TestExecution(models.Model):
@@ -15,6 +19,12 @@ class TestExecution(models.Model):
     status = models.CharField(max_length=1, choices=STATUS_TYPES, default='P')
     report_file = models.FileField(upload_to='reports/', null=True, blank=True)
     execution_date = models.DateTimeField(default=datetime.now)
+    executed_date = models.DateTimeField(blank=True, null=True)
+    browser = models.ForeignKey(Browser, on_delete=models.CASCADE, blank=True, null=True)
+    mobile_so = models.ForeignKey(MobileSO, on_delete=models.CASCADE, blank=True, null=True)
+    script = models.ForeignKey(ApplicationScript, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    create_at = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return self.iteration

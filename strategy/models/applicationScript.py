@@ -31,8 +31,8 @@ class ApplicationScript(models.Model):
         return name.pop()
 
     def get_absolute_script_url(self):
-        # return 'https://s3.us-east-2.amazonaws.com/tsdc-automation.media/'+str(self.script_file.name)
-        return self.script_file.url
+        return 'https://s3.us-east-2.amazonaws.com/tsdc-automation.media/'+str(self.script_file.name)
+        # return self.script_file.url
 
     class Meta:
         verbose_name = "script"
