@@ -7,17 +7,13 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
-from django.dispatch import receiver
 
 from strategy.models.testPlan import TestPlan
 from strategy.models.testStrategy import TestStrategy
-from strategy.models.applicationScript import ApplicationScript
-
 from strategy.forms.testPlan import TestPlanForm
 from strategy.models.applicationVersion import ApplicationVersion
 from strategy.models.application import Application
 from strategy.models.testExecution import TestExecution
-from strategy.forms.testExecution import TestExecutionForm
 
 
 @method_decorator(login_required(), name='dispatch')
@@ -63,8 +59,8 @@ class TestPlanCreate(CreateView):
                             last_exec = TestExecution.objects.latest('id')
 
                             sqs = boto3.client('sqs',
-                                               aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                                               aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                                               aws_access_key_id=settings.AWS_ACCESS_KEY_ID_SQS,
+                                               aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY_SQS,
                                                region_name='us-east-2')
                             queue_url = os.environ["URL_SQS"]
                             response = sqs.send_message(
@@ -72,7 +68,7 @@ class TestPlanCreate(CreateView):
                                 MessageAttributes={
                                 },
                                 MessageBody=(
-                                    str(last_exec.id)
+                                    "app.send_task('" + script.technique_test.function_name + "', kwargs={'arg1': " + str(last_exec.id) + "})"
                                 ),
                                 MessageGroupId="MessageGroupId" + str(last_exec.id)
                             )
@@ -92,8 +88,8 @@ class TestPlanCreate(CreateView):
                             last_exec = TestExecution.objects.latest('id')
 
                             sqs = boto3.client('sqs',
-                                               aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                                               aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                                               aws_access_key_id=settings.AWS_ACCESS_KEY_ID_SQS,
+                                               aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY_SQS,
                                                region_name='us-east-2')
                             queue_url = os.environ["URL_SQS"]
                             response = sqs.send_message(
@@ -101,7 +97,7 @@ class TestPlanCreate(CreateView):
                                 MessageAttributes={
                                 },
                                 MessageBody=(
-                                    str(last_exec.id)
+                                        "app.send_task('" + script.technique_test.function_name + "', kwargs={'arg1': " + str(last_exec.id) + "})"
                                 ),
                                 MessageGroupId="MessageGroupId" + str(last_exec.id)
                             )
@@ -118,10 +114,6 @@ class TestPlanCreate(CreateView):
         strategy = get_object_or_404(TestStrategy, id=self.kwargs['strategy_id'])
         version = get_object_or_404(ApplicationVersion, id=strategy.application_version.id)
         context['application'] = get_object_or_404(Application, id=version.application.id)
-        #app = get_object_or_404(Application, id=version.application.id)
-        #context['scripts'] = ApplicationScript.objects.filter(application=app)
-        #context['scripts'] = TestPlanForm.ModelChoiceField(queryset=SkillsReference.objects.filter(person=self.person)
-        #self.fields['scripts'].queryset = ApplicationScript.objects.all()
         return context
 
 
@@ -157,8 +149,8 @@ class TestPlanEdit(UpdateView):
                             last_exec = TestExecution.objects.latest('id')
 
                             sqs = boto3.client('sqs',
-                                               aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                                               aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                                               aws_access_key_id=settings.AWS_ACCESS_KEY_ID_SQS,
+                                               aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY_SQS,
                                                region_name='us-east-2')
                             queue_url = os.environ["URL_SQS"]
                             response = sqs.send_message(
@@ -166,7 +158,7 @@ class TestPlanEdit(UpdateView):
                                 MessageAttributes={
                                 },
                                 MessageBody=(
-                                    str(last_exec.id)
+                                        "app.send_task('" + script.technique_test.function_name + "', kwargs={'arg1': " + str(last_exec.id) + "})"
                                 ),
                                 MessageGroupId="MessageGroupId" + str(last_exec.id)
                             )
@@ -186,8 +178,8 @@ class TestPlanEdit(UpdateView):
                             last_exec = TestExecution.objects.latest('id')
 
                             sqs = boto3.client('sqs',
-                                               aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                                               aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                                               aws_access_key_id=settings.AWS_ACCESS_KEY_ID_SQS,
+                                               aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY_SQS,
                                                region_name='us-east-2')
                             queue_url = os.environ["URL_SQS"]
                             response = sqs.send_message(
@@ -195,7 +187,7 @@ class TestPlanEdit(UpdateView):
                                 MessageAttributes={
                                 },
                                 MessageBody=(
-                                    str(last_exec.id)
+                                        "app.send_task('" + script.technique_test.function_name + "', kwargs={'arg1': " + str(last_exec.id) + "})"
                                 ),
                                 MessageGroupId="MessageGroupId" + str(last_exec.id)
                             )

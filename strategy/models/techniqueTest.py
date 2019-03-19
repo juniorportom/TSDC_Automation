@@ -6,6 +6,7 @@ class TechniqueTest(models.Model):
     name = models.CharField(max_length=200)
     tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
     available = models.BooleanField(default=False)
+    function_name = models.CharField(max_length=200, default='', blank=True)
 
     def __str__(self):
         return self.name + ' / ' + self.tool.name
