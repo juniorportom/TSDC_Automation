@@ -20,9 +20,21 @@ Formulario para registro de un plan de pruebas
 
 
 class TestPlanForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        strategy_id = kwargs.pop('strategy_id')
+        super(TestPlanForm, self).__init__(*args, **kwargs)
+        print('Esta es la estrategia:')
+        strategy = get_object_or_404(TestStrategy, id=strategy_id)
+        version = get_object_or_404(ApplicationVersion, id=strategy.application_version.id)
+        application = get_object_or_404(Application, id=version.application.id)
+        self.fields['scripts'].queryset = ApplicationScript.objects.filter(application=application)
+
     class Meta:
         model = TestPlan
         fields = ('description', 'iterations', 'browser', 'mobile_so', 'scripts', 'execute_immediately', 'execution_date')
+
+
 
         labels = {
             'description': _("Descripción"),
@@ -45,14 +57,7 @@ class TestPlanForm(forms.ModelForm):
             # 'scripts': forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, choices=list(ApplicationScript.objects.all())),
         }
 
-        def __init__(self, *args, **kwargs):
-            strategy_id = kwargs.pop['strategy_id']  # kwargs.pop('application')
-            super(TestPlanForm, self).__init__(*args, **kwargs)
-            print('Esta es la estrategia:')
-            strategy = get_object_or_404(TestStrategy, id=strategy_id)
-            version = get_object_or_404(ApplicationVersion, id=strategy.application_version.id)
-            application = get_object_or_404(Application, id=version.application.id)
-            self.fields['scripts'].queryset = ApplicationScript.objects.filter(application=application)
+
 
 
 

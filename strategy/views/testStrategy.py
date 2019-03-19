@@ -8,6 +8,8 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
 from strategy.models.testPlan import TestPlan
 from strategy.models.testStrategy import TestStrategy
+from strategy.models.applicationVersion import ApplicationVersion
+from strategy.models.application import Application
 from strategy.forms.testStrategy import TestStrategyForm
 
 
@@ -51,6 +53,8 @@ class TestStrategyDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['plans'] = TestPlan.objects.filter(test_strategy=self.object)
+        version = get_object_or_404(ApplicationVersion, id=self.object.id)
+        context['application'] = get_object_or_404(Application, id=version.application.id)
         return context
 
 

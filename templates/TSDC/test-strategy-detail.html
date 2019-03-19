@@ -85,7 +85,6 @@
             {% if application.type.name == 'Mobile' %}
                 <td>
                     <div class="w-100">
-                        {{ plan.mobile_so }}
                         {% for mobile in plan.mobile_list %}
                             {{ mobile }}
                         {% endfor %}

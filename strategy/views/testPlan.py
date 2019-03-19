@@ -26,6 +26,11 @@ class TestPlanCreate(CreateView):
     form_class = TestPlanForm
     template_name = 'forms/test-plan-form.html'
 
+    def get_form_kwargs(self):
+        kwargs = super(TestPlanCreate, self).get_form_kwargs()
+        kwargs['strategy_id'] = self.kwargs['strategy_id']
+        return kwargs
+
     def form_valid(self, form):
         form.instance.test_strategy = get_object_or_404(TestStrategy, id=self.kwargs['strategy_id'])
         if not form.instance.execute_immediately:
@@ -105,9 +110,6 @@ class TestPlanCreate(CreateView):
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('detail-test-strategy', kwargs={'pk': self.kwargs['strategy_id']})
-
-
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
