@@ -1,0 +1,105 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{strategy.name}}{% endblock %}
+{% block content %}
+<main role="main">
+    {% if executions %}
+    <h5 class="text-center mt-3 mb-3">Elecuciones de pruebas</h5>
+    <div class="row text-center bg-table">
+      <table class="col-md-30 w-100 entradas table table-striped table-bordered">
+        <thead class="text-center">
+          <th>Aplicación</th>
+          <th>Plan</th>
+          <th>Tipo</th>
+          <th>Navegador / Móvil</th>
+          <th>Script</th>
+          <th>Iteración</th>
+          <th>Ejecutar el</th>
+          <th>Ejecutada el</th>
+          <th>Reporte</th>
+          <th>Estado</th>
+        </thead>
+        <tbody>
+          {% for test in executions|dictsort:"create_at" reversed %}
+          <tr>
+            <td>
+                <div class="w-100">
+                    {{ test.script.application }}
+                </div>
+            </td>
+            <td>
+                <div class="w-100">
+                    {{ test.test_plan }}
+                </div>
+            </td>
+          <td>
+                <div class="w-100">
+                    {{ test.script.application.type }}
+                </div>
+            </td>
+          {% if test.script.application.is_mobile %}
+                <td>
+                    <div class="w-100">
+                        {{ test.mobile_so }}
+                    </div>
+                </td>
+            {% else %}
+                <td>
+                    <div class="w-100">
+                        {{ test.browser }}
+                    </div>
+                </td>
+            {% endif %}
+          <td>
+                <div class="w-100">
+                    {{ test.script }}
+                </div>
+            </td>
+          <td>
+                <div class="w-100">
+                    {{ test.iteration }}/{{ test.test_plan.iterations }}
+                </div>
+            </td>
+            <td>
+                <div class="w-100">
+                    {{ test.execution_date|date:'Y-m-d H:i' }}
+                </div>
+            </td>
+            <td>
+                <div class="w-100">
+                    {% if test.executed_date %}
+                        {{ test.executed_date|date:'Y-m-d H:i' }}
+                    {% else %}
+                        - - - -
+                    {% endif %}
+                </div>
+            </td>
+          <td>
+                <div class="w-100">
+                    {{ test.report_file.name }}
+                </div>
+            </td>
+            <td>
+                <div class="w-100">
+                    <div class="w-100 mt-1">
+                        {% if test.status == 'P' %}
+                        <span class="span_form s_reg">{{ test.get_status_display }}</span>
+                        {% elif test.status == 'E' %}
+                            <span class="span_form s_pro">{{ test.get_status_display }}</span>
+                        {% elif test.status == 'S' %}
+                            <span class="span_form s_eje">{{ test.get_status_display }}</span>
+                        {% elif test.status == 'F' %}
+                            <span class="span_form s_fail">{{ test.get_status_display }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+   {% endif %}
+</main>
+{% endblock %}

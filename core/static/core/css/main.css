@@ -252,6 +252,10 @@ a:active {
     background-color: #0fb9b1;
 }
 
+.s_fail{
+    background-color: #96160d;
+}
+
 form li {
     margin-left: 40px;
     list-style: none;
