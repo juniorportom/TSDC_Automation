@@ -1,8 +1,62 @@
 {% extends 'core/base.html' %}
 {% load static %}
-{% block title %}{{strategy.name}}{% endblock %}
+{% block title %}Ejecuciones{% endblock %}
 {% block content %}
 <main role="main">
+<!-- Menu de filtros -->
+    <div class="col-md-11 card container mt-2 ">
+      <div class="card-body">
+        <h3 class="card-title">Filtros</h3>
+        <form class="searchForm" action="{% url 'execution-list' %}" method="GET">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="text-left w-100" for="apps">Aplicaciones:</label>
+                <select class="appsSelect w-100" name="apps" multiple="multiple">
+                  {% for app in apps %}
+                  <option value="{{app.id}}" {% if app.id|stringformat:'i' in searchParams.apps %} selected {% endif %}>{{app.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+                <div class="col-md-4">
+                <label class="text-left w-100" for="plans">Planes de pruebas:</label>
+                <select class="plansSelect w-100" name="plans" multiple="multiple">
+                  {% for plan in plans %}
+                  <option value="{{plan.id}}" {% if plan.id|stringformat:'i' in searchParams.plans %} selected {% endif %}>{{plan.description}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+            <div class="col-md-3">
+                <label class="text-left w-100" for="types">Tipos:</label>
+                <select class="typesSelect w-100" name="types" multiple="multiple">
+                  {% for type in types %}
+                  <option value="{{type.id}}" {% if type.id|stringformat:'i' in searchParams.types %} selected {% endif %}>{{type.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="text-left w-100" for="scripts">Scripts de pruebas:</label>
+                    <select class="scriptsSelect w-100" name="scripts" multiple="multiple">
+                      {% for script in scripts %}
+                      <option value="{{script.id}}" {% if script.id|stringformat:'i' in searchParams.scripts %} selected {% endif %}>{{script.name}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                <div class="col-md-4">
+                    <label class="text-left w-100" for="status">Estado:</label>
+                    <select class="statusSelect w-100" name="status" multiple="multiple">
+                      {% for state in status %}
+                      <option value="{{state.0}}" {% if state.0|stringformat:'i' in searchParams.status %} selected {% endif %}>{{state.1}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+            </div>
+          <input type="submit" class="btn btn-primary btn-block w-25 mt-3" value="Buscar">
+        </form>
+      </div>
+    </div>
     {% if executions %}
     <h5 class="text-center mt-3 mb-3">Ejecuciones de pruebas</h5>
     <div class="row text-center bg-table">
@@ -100,6 +154,8 @@
         </tbody>
       </table>
     </div>
+   {% else %}
+        <h4 class="text-center mt-3">¡No hay ejecuciones programadas!</h4>
    {% endif %}
 </main>
 {% endblock %}
