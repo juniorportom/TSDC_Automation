@@ -130,7 +130,10 @@
             </td>
           <td>
                 <div class="w-100">
-                    {{ test.report_file.name }}
+                    {% if  test.report_file %}
+                        <a class="btnn btn-full w-40" href="{{ test.get_absolute_report_url}}" download><i class="ion-ios-cloud-download icon-small"></i></a>
+                        <a class="btnn btnn-dlt w-40" href="{{ test.get_absolute_report_url}}" target="_blank"><i class="ion-ios-eye icon-small"></i></a>
+                    {% endif %}
                 </div>
             </td>
             <td>
