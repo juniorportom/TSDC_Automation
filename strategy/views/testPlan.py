@@ -1,5 +1,8 @@
 # coding=utf-8
 import boto3
+import base64
+import json
+from celery import Celery
 from django.conf import settings
 import os
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -69,8 +72,8 @@ class TestPlanCreate(CreateView):
                                 },
                                 MessageBody=(
                                     "app.send_task('" + script.technique_test.function_name + "', kwargs={'arg1': " + str(last_exec.id) + "})"
-                                ),
-                                MessageGroupId="MessageGroupId" + str(last_exec.id)
+                                )# ,
+                                # MessageGroupId="MessageGroupId" + str(last_exec.id)
                             )
             else:
                 for browser in testPlan.browser_list():
@@ -87,20 +90,35 @@ class TestPlanCreate(CreateView):
                             execution.save()
                             last_exec = TestExecution.objects.latest('id')
 
-                            sqs = boto3.client('sqs',
-                                               aws_access_key_id=settings.AWS_ACCESS_KEY_ID_SQS,
-                                               aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY_SQS,
-                                               region_name='us-east-2')
-                            queue_url = os.environ["URL_SQS"]
-                            response = sqs.send_message(
-                                QueueUrl=queue_url,
-                                MessageAttributes={
-                                },
-                                MessageBody=(
-                                        "app.send_task('" + script.technique_test.function_name + "', kwargs={'arg1': " + str(last_exec.id) + "})"
-                                ),
-                                MessageGroupId="MessageGroupId" + str(last_exec.id)
+                            # message = {"task":"celery.task." + script.technique_test.function_name,
+                            #           "args":[str(last_exec.id)]}
+
+                            # message_string = json.dumps(message)
+                            # byte_message = base64.b64encode(message_string.encode('utf-8'))
+                            # base64_json_string = byte_message.decode()
+
+                            str_conn = 'sqs://' + settings.AWS_ACCESS_KEY_ID_SQS + ':' + settings.AWS_SECRET_ACCESS_KEY_SQS + '@' + os.environ["URL_NAME_SQS"]
+                            app = Celery('hello', broker=str_conn)
+
+                            app.conf.update(
+                                broker_transport_options={'region': 'us-east-2'}
                             )
+                            app.send_task('tasks.' + script.technique_test.function_name, kwargs={'id': last_exec.id})
+
+                            # sqs = boto3.client('sqs',
+                            #                   aws_access_key_id=settings.AWS_ACCESS_KEY_ID_SQS,
+                            #                   aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY_SQS,
+                            #                   region_name='us-east-2')
+                            # queue_url = os.environ["URL_SQS"]
+                            # response = sqs.send_message(
+                            #    QueueUrl=queue_url,
+                            #    MessageAttributes={
+                            #    },
+                            #    MessageBody=(
+                            #        base64_json_string
+                            #    ) # ,
+                            #    # MessageGroupId="MessageGroupId" + str(last_exec.id)
+                            # )
 
         return super().form_valid(form)
 
@@ -159,8 +177,8 @@ class TestPlanEdit(UpdateView):
                                 },
                                 MessageBody=(
                                         "app.send_task('" + script.technique_test.function_name + "', kwargs={'arg1': " + str(last_exec.id) + "})"
-                                ),
-                                MessageGroupId="MessageGroupId" + str(last_exec.id)
+                                ) # ,
+                                # MessageGroupId="MessageGroupId" + str(last_exec.id)
                             )
             else:
                 for browser in testPlan.browser_list():
@@ -188,8 +206,8 @@ class TestPlanEdit(UpdateView):
                                 },
                                 MessageBody=(
                                         "app.send_task('" + script.technique_test.function_name + "', kwargs={'arg1': " + str(last_exec.id) + "})"
-                                ),
-                                MessageGroupId="MessageGroupId" + str(last_exec.id)
+                                )# ,
+                                # MessageGroupId="MessageGroupId" + str(last_exec.id)
                             )
 
         return reverse_lazy('detail-test-strategy', kwargs={'pk': self.kwargs['strategy_id']})
