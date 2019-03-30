@@ -1,0 +1,34 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <form role="form" action="{% url 're-execution' object.pk %}" method="post">
+        <div class="modal-header">
+             <h3 class="close align-content-center">Reintentar</h3>
+            <button type="button" class="close btn btn-danger" data-dismiss="modal">
+                <i class="ion-ios-close"></i></button>
+        </div>
+        <div class="modal-body">
+            {% csrf_token %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        <h6>¿Quieres reintentar la iteración {{ object.iteration }} del script {{ object.script.name }}, que pertenece al plan de pruebas {{ object.test_plan }}</h6>
+                 <div class="fieldWrapper form-control mt-2">
+                    {{ form.iteration }}
+                </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="modal-footer btn-toolbar">
+                <button type="submit"id="id_grabar" class="btn-b btn-bf pull-right">
+                    <i class="ion-ios-save icon-small icon-normal"></i>Reintentar
+                </button>
+                <button type="submit" class="btn-b btn-bg pull-right" data-dismiss="modal"
+                        style="margin-left: 5px">
+                    <i class="ion-ios-power icon-small icon-normal"></i>Cancelar
+                </button>
+            </div>
+                    </div>
+        </form>
+    </div>
+</div>

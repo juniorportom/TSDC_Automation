@@ -3,12 +3,17 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.generic.edit import UpdateView
+
 from strategy.models.testExecution import TestExecution
+from strategy.forms.testExecution import TestExecutionForm
 from strategy.models.application import Application
 from strategy.models.applicationScript import ApplicationScript
 from strategy.models.testPlan import TestPlan
 from strategy.models.applicationType import ApplicationType
 from strategy.models.testStrategy import TestStrategy
+from strategy.views.sqsMessage import send_message
+from django.urls import reverse_lazy
 
 
 @method_decorator(login_required(), name='dispatch')
@@ -21,6 +26,29 @@ class TestExecutionList(ListView):
     def get_queryset(self):
         object_list = self.model.objects.filter(user=self.request.user)
         return object_list
+
+
+@method_decorator(login_required(), name='dispatch')
+class ReExecTestExecution(UpdateView):
+    model = TestExecution
+    template_name = 'forms/execution-form.html'
+    form_class = TestExecutionForm
+
+    def get_success_url(self, **kwargs):
+
+        send_message(self.object.script.technique_test.function_name, self.object.id)
+
+        # if self.object.application.type.name == 'Mobile':
+        # send_message(self.object.script.technique_test.function_name, self.object.id)
+        # else:
+        #    send_message(self.object.script.technique_test.function_name, self.object.id)
+
+        return reverse_lazy('execution-list')
+
+    def form_valid(self, form):
+        form.instance.status = 'P'
+
+        return super().form_valid(form)
 
 
 def executionFind(request):
@@ -75,5 +103,18 @@ def executionFind(request):
         'status': all_status,
         'executions': executions,
     }
+    return render(request, 'TSDC/execution-detail.html', context)
+
+
+def re_execute(request, id_exec):
+
+    execute = TestExecution.objects.get(id=id_exec)
+    execute.status = 'P'
+    execute.save()
+
+    send_message(execute.script.technique_test.function_name, execute.id)
+
+    context = {'execute':execute}
+
     return render(request, 'TSDC/execution-detail.html', context)
 

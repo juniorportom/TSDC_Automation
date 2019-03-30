@@ -1,7 +1,4 @@
 # coding=utf-8
-import boto3
-import base64
-import json
 from celery import Celery
 from django.conf import settings
 import os
@@ -17,6 +14,7 @@ from strategy.forms.testPlan import TestPlanForm
 from strategy.models.applicationVersion import ApplicationVersion
 from strategy.models.application import Application
 from strategy.models.testExecution import TestExecution
+from strategy.views.sqsMessage import send_message
 
 
 @method_decorator(login_required(), name='dispatch')
@@ -69,6 +67,7 @@ class TestPlanCreate(CreateView):
                                 broker_transport_options={'region': 'us-east-2'}
                             )
                             app.send_task('tasks.' + script.technique_test.function_name, kwargs={'id': last_exec.id})
+
             else:
                 for browser in testPlan.browser_list():
                     for script in testPlan.script_list():
@@ -104,14 +103,7 @@ class TestPlanCreate(CreateView):
                             #    # MessageGroupId="MessageGroupId" + str(last_exec.id)
                             # )
 
-                            str_conn = 'sqs://' + settings.AWS_ACCESS_KEY_ID_SQS + ':' + settings.AWS_SECRET_ACCESS_KEY_SQS + '@' + \
-                                       os.environ["URL_NAME_SQS"]
-                            app = Celery('hello', broker=str_conn)
-
-                            app.conf.update(
-                                broker_transport_options={'region': 'us-east-2'}
-                            )
-                            app.send_task('tasks.' + script.technique_test.function_name, kwargs={'id': last_exec.id})
+                            send_message(script.technique_test.function_name, last_exec.id)
 
         return super().form_valid(form)
 
