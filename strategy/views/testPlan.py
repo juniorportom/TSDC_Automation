@@ -1,7 +1,4 @@
 # coding=utf-8
-from celery import Celery
-from django.conf import settings
-import os
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -59,14 +56,7 @@ class TestPlanCreate(CreateView):
                             execution.save()
                             last_exec = TestExecution.objects.latest('id')
 
-                            str_conn = 'sqs://' + settings.AWS_ACCESS_KEY_ID_SQS + ':' + settings.AWS_SECRET_ACCESS_KEY_SQS + '@' + \
-                                       os.environ["URL_NAME_SQS"]
-                            app = Celery('hello', broker=str_conn)
-
-                            app.conf.update(
-                                broker_transport_options={'region': 'us-east-2'}
-                            )
-                            app.send_task('tasks.' + script.technique_test.function_name, kwargs={'id': last_exec.id})
+                            send_message(script.technique_test.function_name, last_exec.id)
 
             else:
                 for browser in testPlan.browser_list():
@@ -151,14 +141,7 @@ class TestPlanEdit(UpdateView):
                             execution.save()
                             last_exec = TestExecution.objects.latest('id')
 
-                            str_conn = 'sqs://' + settings.AWS_ACCESS_KEY_ID_SQS + ':' + settings.AWS_SECRET_ACCESS_KEY_SQS + '@' + \
-                                       os.environ["URL_NAME_SQS"]
-                            app = Celery('hello', broker=str_conn)
-
-                            app.conf.update(
-                                broker_transport_options={'region': 'us-east-2'}
-                            )
-                            app.send_task('tasks.' + script.technique_test.function_name, kwargs={'id': last_exec.id})
+                            send_message(script.technique_test.function_name, last_exec.id)
             else:
                 for browser in testPlan.browser_list():
                     for script in testPlan.script_list():
@@ -174,14 +157,7 @@ class TestPlanEdit(UpdateView):
                             execution.save()
                             last_exec = TestExecution.objects.latest('id')
 
-                            str_conn = 'sqs://' + settings.AWS_ACCESS_KEY_ID_SQS + ':' + settings.AWS_SECRET_ACCESS_KEY_SQS + '@' + \
-                                       os.environ["URL_NAME_SQS"]
-                            app = Celery('hello', broker=str_conn)
-
-                            app.conf.update(
-                                broker_transport_options={'region': 'us-east-2'}
-                            )
-                            app.send_task('tasks.' + script.technique_test.function_name, kwargs={'id': last_exec.id})
+                            send_message(script.technique_test.function_name, last_exec.id)
 
         return reverse_lazy('detail-test-strategy', kwargs={'pk': self.kwargs['strategy_id']})
 
