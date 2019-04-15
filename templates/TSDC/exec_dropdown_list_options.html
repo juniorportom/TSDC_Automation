@@ -1,0 +1,11 @@
+<label class="text-center w-75" for="execs">Ejecución:</label>
+<select class="execSelect w-75" name="execs" >
+  <option value="-1" {% if searchParams.exec == -1 %} selected {% endif %}>Todas</option>
+  {% for exec in execs %}
+  <option value="{{exec.id}}" {% if searchParams.exec == exec.id %} selected {% endif %}>{{exec.test_plan}}/{{exec.execution_date|date:'Y-m-d H:i'}}/{{exec.iteration}}</option>
+  {% endfor %}
+</select>
+
+<script>
+    $('.execSelect').select2();
+</script>

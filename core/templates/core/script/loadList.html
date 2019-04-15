@@ -1,0 +1,54 @@
+<script >
+  $("#id_app").change(function () {
+      var url = $("#vrtForm").attr("data-scripts-url");
+      var app = $(this).val();
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'app': app
+        },
+            success: function (data) {
+            $("#id_script").html(data);
+        }});
+
+    });
+
+  $("#id_script").change(function () {
+      var url = $("#vrtForm").attr("data-execs-url");
+      var script = $(this).find('select').val()
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'script': script
+        },
+            success: function (data) {
+            $("#id_exec1").html(data);
+            $("#id_exec2").html(data);
+        }});
+
+    });
+
+  $("#id_exec1").change(function () {
+      var url = $("#vrtForm").attr("data-steps-url");
+      var exec = $(this).find('select').val()
+      console.log('Este ees eke esj: ' + exec)
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'exec': exec
+        },
+            success: function (data) {
+            $("#id_step").html(data);
+        }});
+
+    });
+</script>

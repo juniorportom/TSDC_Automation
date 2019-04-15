@@ -14,6 +14,7 @@ from strategy.models.applicationType import ApplicationType
 from strategy.models.testStrategy import TestStrategy
 from strategy.views.sqsMessage import send_message
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 
 
 @method_decorator(login_required(), name='dispatch')
@@ -116,5 +117,7 @@ def re_execute(request, id_exec):
 
     context = {'execute':execute}
 
-    return render(request, 'TSDC/execution-detail.html', context)
+    # return render(request, 'TSDC/execution-detail.html', context)
+
+    return HttpResponseRedirect('/strategy/execution-list/')
 

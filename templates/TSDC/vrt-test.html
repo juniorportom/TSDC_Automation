@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}VRT{% endblock %}
+{% block content %}
+<main role="main">
+<!-- Menu de filtros -->
+    <div class="col-md-11 card container mt-2 ">
+      <div class="card-body">
+        <h3 class="card-title">Pruebas VRT</h3>
+        <form id="vrtForm" class="searchForm" method="GET" data-scripts-url="{% url 'ajax_load_scripts' %}" data-execs-url="{% url 'ajax_load_execs' %}"
+              data-steps-url="{% url 'ajax_load_steps' %}" novalidate>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="text-center w-75" for="apps">Aplicación:</label>
+                <select class="appSelect w-75" name="apps" id="id_app">
+                  <option value="-1" {% if searchParams.app == -1 %} selected {% endif %}>Todas</option>
+                  {% for app in apps %}
+                  <option value="{{app.id}}" {% if searchParams.app == app.id %} selected {% endif %}>{{app.name}}</option>
+                  {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                    <div id="id_script"></div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <div id="id_exec1"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="id_exec2"></div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <div id="id_step"></div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
+          <input type="submit" class="btn btn-primary btn-block w-25 mt-3" value="Buscar">
+        </form>
+      </div>
+    </div>
+
+</main>
+
+
+{% endblock %}

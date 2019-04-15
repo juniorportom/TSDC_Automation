@@ -1,0 +1,11 @@
+<label class="text-center w-75" for="steps">Pasos:</label>
+<select class="stepSelect w-75" name="steps" >
+  <option value="-1" {% if searchParams.step == -1 %} selected {% endif %}>Todos</option>
+  {% for step in steps %}
+  <option value="{{step.id}}" {% if searchParams.step == step.id %} selected {% endif %}>{{step.image_name}}</option>
+  {% endfor %}
+</select>
+
+<script>
+    $('.stepSelect').select2();
+</script>
