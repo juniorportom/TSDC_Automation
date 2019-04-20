@@ -1,8 +1,7 @@
-<label class="text-center w-75" for="steps">Pasos:</label>
-<select class="stepSelect w-75" name="steps" >
-  <option value="-1" {% if searchParams.step == -1 %} selected {% endif %}>Todos</option>
+<label class="text-center w-75" for="steps">Pasos ejecución 1:</label>
+<select class="stepSelect w-75" name="steps" multiple="multiple">
   {% for step in steps %}
-  <option value="{{step.id}}" {% if searchParams.step == step.id %} selected {% endif %}>{{step.image_name}}</option>
+  <option value="{{step.id}}" {% if step.id|stringformat:'i' in searchParams.steps %} selected {% endif %}>{{step.image_name}}</option>
   {% endfor %}
 </select>
 

@@ -20,7 +20,7 @@ class StepImage(models.Model):
         name = self.image.name.split('/')
         return name.pop()
 
-    def get_absolute_script_url(self):
+    def get_absolute_img_url(self):
         # return 'https://s3.us-east-2.amazonaws.com/tsdc-automation.media/' + str(self.image.name)
         return 'https://d375j7oj9wi0ea.cloudfront.net/' + str(self.image.name)
         # return self.image.url

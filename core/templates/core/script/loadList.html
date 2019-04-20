@@ -51,4 +51,59 @@
         }});
 
     });
+
+  $("#id_exec2").change(function () {
+      var url = $("#vrtForm").attr("data-steps2-url");
+      var exec = $(this).find('select').val()
+      console.log('Este ees eke esj: ' + exec)
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'exec2': exec
+        },
+            success: function (data) {
+            $("#id_step2").html(data);
+        }});
+
+    });
+
+  $("#id_step").change(function () {
+      var url = $("#vrtForm").attr("data-imgs-url");
+      var step_list = $(this).find('select').val()
+      console.log(step_list)
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'steps_list': JSON.stringify(step_list)
+        },
+            success: function (data) {
+            $("#id_load_imgs1").html(data);
+        }});
+
+    });
+
+  $("#id_step2").change(function () {
+      var url = $("#vrtForm").attr("data-imgs2-url");
+      var step_list = $(this).find('select').val()
+      console.log(step_list)
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'steps_list2': JSON.stringify(step_list)
+        },
+            success: function (data) {
+            $("#id_load_imgs2").html(data);
+        }});
+
+    });
+
 </script>

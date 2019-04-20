@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.shortcuts import render
+import json
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -67,17 +68,54 @@ def load_execs(request):
 
 
 def load_steps(request):
-    step = request.GET.get('step', -1)
-    step = int(step)
+    steps = request.GET.getlist('steps')
     exec_id = request.GET.get('exec')
-    print('Exec: ' + str(exec_id))
-    all_steps = StepImage.objects.filter(test_execution__in=exec_id).order_by('id')
+    all_steps = StepImage.objects.filter(test_execution_id=exec_id).order_by('id')
 
     context = {
         'searchParams': {
-            'isSearch': step != -1,
-            'step': step
+            'isSearch': len(steps) != 0,
+            'steps': steps
         },
         'steps': all_steps
     }
     return render(request, 'TSDC/step_dropdown_list_options.html', context)
+
+
+def load_steps2(request):
+    steps = request.GET.getlist('steps2')
+    exec_id = request.GET.get('exec2')
+    all_steps = StepImage.objects.filter(test_execution_id=exec_id).order_by('id')
+
+    context = {
+        'searchParams': {
+            'isSearch': len(steps) != 0,
+            'steps2': steps
+        },
+        'steps2': all_steps
+    }
+    return render(request, 'TSDC/step_dropdown_list_options2.html', context)
+
+
+def load_imgs(request):
+    steps = json.loads(request.GET.get('steps_list'))
+
+    if steps:
+        steps_part1 = StepImage.objects.filter(id__in=steps)
+
+    context = {
+        'stepsImgs': steps_part1
+    }
+    return render(request, 'TSDC/step_img_list.html', context)
+
+
+def load_imgs2(request):
+    steps = json.loads(request.GET.get('steps_list2'))
+
+    if steps:
+        steps_part2 = StepImage.objects.filter(id__in=steps)
+
+    context = {
+        'stepsImgs2': steps_part2
+    }
+    return render(request, 'TSDC/step_img_list2.html', context)
