@@ -10,6 +10,7 @@ django = "*"
 pillow = "*"
 "boto3" = "*"
 django-storages = "*"
+celery = "*"
 
 [dev-packages]
 

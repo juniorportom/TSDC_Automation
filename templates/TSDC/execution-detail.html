@@ -71,7 +71,7 @@
           <th>Ejecutar el</th>
           <th>Ejecutada el</th>
           <th>Reporte</th>
-          <th>Estado</th>
+          <th>Estado / Opciones</th>
         </thead>
         <tbody>
           {% for test in executions|dictsort:"create_at" reversed %}
@@ -132,7 +132,7 @@
                 <div class="w-100">
                     {% if  test.report_file %}
                         <a class="btnn btn-full w-40" href="{{ test.get_absolute_report_url}}" download><i class="ion-ios-cloud-download icon-small"></i></a>
-                        <a class="btnn btnn-dlt w-40" href="{{ test.get_absolute_report_url}}" target="_blank"><i class="ion-ios-eye icon-small"></i></a>
+                        <a class="btnn btnn-dlt w-40" href="{{ test.get_absolute_report_url}}" target="_blank" style="target-new: tab;" ><i class="ion-ios-eye icon-small"></i></a>
                     {% endif %}
                 </div>
             </td>
@@ -149,6 +149,11 @@
                             <span class="span_form s_fail">{{ test.get_status_display }}</span>
                         {% endif %}
                     </div>
+                <div class="w-100 mt-2">
+                    {% if test.status == 'S' or test.status == 'F' or test.status == 'P' %}
+                        <a class="btnn btn-full" id="id_execution"  href="{% url 're-execution' test.id %}" ><i class="ion-ios-play icon-small icon-normal"></i>Reintentar</a>
+                    {% endif %}
+                </div>
                 </div>
             </td>
 

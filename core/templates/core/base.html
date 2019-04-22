@@ -40,6 +40,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'execution-list' %}"><i class="ion-ios-stats icon-small"></i>Tablero</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'vrt-test' %}"><i class="ion-ios-stats icon-small"></i>VRT</a>
+              </li>
               {% endif %}
             </ul>
             <ul class="navbar-nav">
@@ -73,9 +76,10 @@
       <!-- Contenido -->
       {% block content %}{% endblock %}
       <!-- Javascript -->
-      <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
       <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
       <script src="{% static 'core/vendor/select2/js/select2.min.js' %}"></script>
+      {% include 'core/script/loadList.html' %}
       {% include 'core/script/appScripts.html' %}
       <script src="http://vjs.zencdn.net/7.0/video.min.js"></script>
       <script src="{% static 'core/js/main.js' %}"></script>

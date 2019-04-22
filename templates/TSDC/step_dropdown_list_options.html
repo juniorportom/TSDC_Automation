@@ -1,0 +1,10 @@
+<label class="text-center w-75" for="steps">Pasos ejecución 1:</label>
+<select class="stepSelect w-75" name="steps" multiple="multiple">
+  {% for step in steps %}
+  <option value="{{step.id}}" {% if step.id|stringformat:'i' in searchParams.steps %} selected {% endif %}>{{step.image_name}}</option>
+  {% endfor %}
+</select>
+
+<script>
+    $('.stepSelect').select2();
+</script>

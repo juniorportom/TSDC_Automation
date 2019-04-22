@@ -1,0 +1,11 @@
+<label class="text-center w-75" for="scripts">Script:</label>
+<select class="scrptsSelect w-75" name="scripts" id="id_script_s">
+  <option value="-1" {% if searchParams.script == -1 %} selected {% endif %}>Seleccione</option>
+  {% for script in scripts %}
+  <option value="{{script.id}}" {% if searchParams.script == script.id %} selected {% endif %}>{{script.name}}</option>
+  {% endfor %}
+</select>
+
+<script>
+    $('.scrptsSelect').select2();
+</script>

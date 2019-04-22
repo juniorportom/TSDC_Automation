@@ -1,0 +1,124 @@
+<script >
+  $("#id_app").change(function () {
+      var url = $("#vrtForm").attr("data-scripts-url");
+      var app = $(this).val();
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'app': app
+        },
+            success: function (data) {
+            $("#id_script").html(data);
+        }});
+
+    });
+
+  $("#id_script").change(function () {
+      var url = $("#vrtForm").attr("data-execs-url");
+      var script = $(this).find('select').val()
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'script': script
+        },
+            success: function (data) {
+            $("#id_exec1").html(data);
+            $("#id_exec2").html(data);
+        }});
+
+    });
+
+  $("#id_exec1").change(function () {
+      var url = $("#vrtForm").attr("data-steps-url");
+      var exec = $(this).find('select').val()
+      console.log('Este ees eke esj: ' + exec)
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'exec': exec
+        },
+            success: function (data) {
+            $("#id_step").html(data);
+        }});
+
+    });
+
+  $("#id_exec2").change(function () {
+      var url = $("#vrtForm").attr("data-steps2-url");
+      var exec = $(this).find('select').val()
+      console.log('Este ees eke esj: ' + exec)
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'exec2': exec
+        },
+            success: function (data) {
+            $("#id_step2").html(data);
+        }});
+
+    });
+
+  $("#id_step").change(function () {
+      var url = $("#vrtForm").attr("data-imgs-url");
+      var step_list = $(this).find('select').val()
+      console.log(step_list)
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'steps_list': JSON.stringify(step_list)
+        },
+            success: function (data) {
+            $("#id_load_imgs1").html(data);
+        }});
+
+    });
+
+  $("#id_step2").change(function () {
+      var url = $("#vrtForm").attr("data-imgs2-url");
+      var step_list = $(this).find('select').val()
+      console.log(step_list)
+       $.ajax(
+       {
+           async: true,
+           url: url,
+           type: 'GET',
+           data: {
+          'steps_list2': JSON.stringify(step_list)
+        },
+            success: function (data) {
+            $("#id_load_imgs2").html(data);
+        }});
+
+      compare();
+
+    });
+
+  function compare() {
+      var imgs1 = document.getElementById('id_load_imgs1').getElementsByTagName('img');
+      var imgs2 = document.getElementById('id_load_imgs2').getElementsByTagName('img');
+
+      if(imgs1.length == imgs2.length)
+      {
+
+      }
+
+  }
+
+
+
+</script>

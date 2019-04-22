@@ -4,7 +4,8 @@ from strategy.views.applicationVersion import ApplicationVersionCreate, Applicat
 from strategy.views.testStrategy import TestStrategyCreate, TestStrategyList, TestStrategyEdit, TestStrategyDelete, TestStrategyDetail
 from strategy.views.testPlan import TestPlanCreate, TestPlanEdit, TestPlanDelete
 from strategy.views.applicationScript import ApplicationScriptCreate, ApplicationScriptEdit, ApplicationScriptDelete
-from strategy.views.testExecution import executionFind
+from strategy.views.testExecution import executionFind, re_execute
+from strategy.views.vrtTest import applications_vrt, load_scripts, load_execs, load_steps, load_steps2, load_imgs, load_imgs2
 
 urlpatterns = [
     path('create-application/', ApplicationCreate.as_view(), name='create-application'),
@@ -31,4 +32,14 @@ urlpatterns = [
     path('delete-application-script/<int:application_id>/<int:pk>', ApplicationScriptDelete.as_view(), name='delete-application-script'),
 
     path('execution-list/', executionFind, name='execution-list'),
+    path('re-execution/<int:id_exec>', re_execute, name='re-execution'),
+
+    path('vrt-test/', applications_vrt, name='vrt-test'),
+    path('ajax/load-scripts/', load_scripts, name='ajax_load_scripts'),
+    path('ajax/load-execs/', load_execs, name='ajax_load_execs'),
+    path('ajax/load-steps/', load_steps, name='ajax_load_steps'),
+    path('ajax/load-steps2/', load_steps2, name='ajax_load_steps2'),
+
+    path('ajax/load-imgs/', load_imgs, name='ajax_load_imgs'),
+    path('ajax/load-imgs2/', load_imgs2, name='ajax_load_imgs2'),
 ]
