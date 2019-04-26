@@ -54,7 +54,7 @@
 
   $("#id_exec2").change(function () {
       var url = $("#vrtForm").attr("data-steps2-url");
-      var exec = $(this).find('select').val()
+      var exec = $(this).find('select').val();
       console.log('Este ees eke esj: ' + exec)
        $.ajax(
        {
@@ -72,8 +72,8 @@
 
   $("#id_step").change(function () {
       var url = $("#vrtForm").attr("data-imgs-url");
-      var step_list = $(this).find('select').val()
-      console.log(step_list)
+      var step_list = $(this).find('select').val();
+      console.log(step_list);
        $.ajax(
        {
            async: true,
@@ -90,8 +90,8 @@
 
   $("#id_step2").change(function () {
       var url = $("#vrtForm").attr("data-imgs2-url");
-      var step_list = $(this).find('select').val()
-      console.log(step_list)
+      var step_list = $(this).find('select').val();
+      console.log(step_list);
        $.ajax(
        {
            async: true,
@@ -105,6 +105,31 @@
         }});
 
       compare();
+
+    });
+
+
+
+  $("#id_imgs_container").change(function () {
+      var url = $("#vrtForm").attr("data-diff-url");
+      var step_list1 = $("#id_step").find('select').val();
+      var step_list2 = $("#id_step2").find('select').val();
+      if(step_list1.length == step_list2.length){
+          console.log(step_list1);
+          console.log(step_list2);
+          $.ajax(
+           {
+               async: true,
+               url: url,
+               type: 'GET',
+               data: {
+                'steps_list1': JSON.stringify(step_list1),
+                'steps_list2': JSON.stringify(step_list2),
+            },
+                success: function (data) {
+                $("#id_load_diff").html(data);
+            }});
+      }
 
     });
 

@@ -25,6 +25,9 @@ class StepImage(models.Model):
         return 'https://d375j7oj9wi0ea.cloudfront.net/' + str(self.image.name)
         # return self.image.url
 
+    def get_absolute_s3_img_url(self):
+        return 'https://s3.us-east-2.amazonaws.com/tsdc-automation.media/' + str(self.image.name)
+
     class Meta:
         verbose_name = "image_step"
         verbose_name_plural = "image_steps"

@@ -17,6 +17,7 @@ from strategy.models.testStrategy import TestStrategy
 from strategy.views.sqsMessage import send_message
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+import requests
 
 
 def applications_vrt(request):
@@ -119,3 +120,41 @@ def load_imgs2(request):
         'stepsImgs2': steps_part2
     }
     return render(request, 'TSDC/step_img_list2.html', context)
+
+
+def load_diffs(request):
+    steps1 = json.loads(request.GET.get('steps_list1'))
+    steps2 = json.loads(request.GET.get('steps_list2'))
+
+
+    imgs_diffs = []
+
+    if steps1 and steps2 and len(steps1) == len(steps2):
+        if steps1:
+            steps_part1 = StepImage.objects.filter(id__in=steps1)
+
+        if steps2:
+            steps_part2 = StepImage.objects.filter(id__in=steps2)
+
+        for i in range(len(steps_part1)):
+            response =  requests.post('http://localhost:8080/compare-images',
+                data={'image1': steps_part1[i].get_absolute_s3_img_url(),
+                    'image2': steps_part2[i].get_absolute_s3_img_url(),
+                    'idImg1': steps_part1[i].id,
+                    'idImg2':steps_part2[i].id}).json()
+            vrt = VRTElem(response['report']['idImg1'], response['report']['idImg2'], response['report']['imageDiff'])
+            print(response['report']['imageDiff'])
+            imgs_diffs.append(vrt)
+
+    context = {
+        'diffs': imgs_diffs
+    }
+
+    return render(request, 'TSDC/step_img_diff.html', context)
+
+
+class VRTElem:
+    def __init__(self, id1, id2, img):
+        self.id1 = id1
+        self.id2 = id2
+        self.img = img
