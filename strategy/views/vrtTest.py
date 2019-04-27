@@ -2,21 +2,13 @@
 from django.shortcuts import render
 import json
 import os
+from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views.generic.edit import UpdateView
-
 from strategy.models.testExecution import TestExecution
-from strategy.forms.testExecution import TestExecutionForm
 from strategy.models.application import Application
 from strategy.models.applicationScript import ApplicationScript
 from strategy.models.stepImage import StepImage
-from strategy.models.testPlan import TestPlan
-from strategy.models.applicationType import ApplicationType
-from strategy.models.testStrategy import TestStrategy
-from strategy.views.sqsMessage import send_message
-from django.urls import reverse_lazy
+from strategy.models.vrtTest import VrtTest
 from django.http import HttpResponseRedirect
 import requests
 
@@ -162,3 +154,28 @@ class VRTElem:
         self.id1 = id1
         self.id2 = id2
         self.img = img
+
+
+def saveVRT(request):
+    steps1 = request.GET.getlist('steps')
+    steps2 = request.GET.getlist('steps2')
+    url_diff = request.GET.getlist('diff')
+
+    if steps1:
+        for i in range(len(steps1)):
+            img1 = get_object_or_404(StepImage, id=int(steps1[i]))
+            img2 = get_object_or_404(StepImage, id=int(steps2[i]))
+            vrtTest = VrtTest()
+            vrtTest.step_image_a = img1
+            vrtTest.step_image_b = img2
+            vrtTest.image_diff = url_diff[i]
+            vrtTest.save()
+
+    return HttpResponseRedirect('/strategy/vrt-test-list/')
+
+
+class VrtList(ListView):
+    model = VrtTest
+    template_name = 'TSDC/vrt-list.html'
+    context_object_name = 'regressions'
+    paginate_by = 20

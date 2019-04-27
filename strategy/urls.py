@@ -5,7 +5,7 @@ from strategy.views.testStrategy import TestStrategyCreate, TestStrategyList, Te
 from strategy.views.testPlan import TestPlanCreate, TestPlanEdit, TestPlanDelete
 from strategy.views.applicationScript import ApplicationScriptCreate, ApplicationScriptEdit, ApplicationScriptDelete
 from strategy.views.testExecution import executionFind, re_execute
-from strategy.views.vrtTest import applications_vrt, load_scripts, load_execs, load_steps, load_steps2, load_imgs, load_imgs2, load_diffs
+from strategy.views.vrtTest import applications_vrt, load_scripts, load_execs, load_steps, load_steps2, load_imgs, load_imgs2, load_diffs, saveVRT, VrtList
 
 urlpatterns = [
     path('create-application/', ApplicationCreate.as_view(), name='create-application'),
@@ -43,4 +43,7 @@ urlpatterns = [
     path('ajax/load-imgs/', load_imgs, name='ajax_load_imgs'),
     path('ajax/load-imgs2/', load_imgs2, name='ajax_load_imgs2'),
     path('ajax/load-diff/', load_diffs, name='ajax_load_diff'),
+
+    path('vrt-test-create/', saveVRT, name='vrt-test-create'),
+    path('vrt-test-list/', VrtList.as_view(), name='vrt-test-list'),
 ]

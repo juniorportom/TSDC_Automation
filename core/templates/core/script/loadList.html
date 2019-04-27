@@ -104,8 +104,6 @@
             $("#id_load_imgs2").html(data);
         }});
 
-      compare();
-
     });
 
 
@@ -133,16 +131,20 @@
 
     });
 
-  function compare() {
-      var imgs1 = document.getElementById('id_load_imgs1').getElementsByTagName('img');
-      var imgs2 = document.getElementById('id_load_imgs2').getElementsByTagName('img');
 
-      if(imgs1.length == imgs2.length)
-      {
-
+  function compare(diff) {
+      var url = $("#vrtForm").attr("compare-action");
+      $.ajax(
+           {
+               async: true,
+               url: url,
+               type: 'GET',
+               data: {
+                'diffs': JSON.stringify(diff)
+            }});
       }
 
-  }
+
 
 
 
