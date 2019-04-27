@@ -141,7 +141,10 @@ def load_diffs(request):
                 data={'image1': steps_part1[i].get_absolute_s3_img_url(),
                     'image2': steps_part2[i].get_absolute_s3_img_url(),
                     'idImg1': steps_part1[i].id,
-                    'idImg2':steps_part2[i].id}).json()
+                    'idImg2':steps_part2[i].id,
+                      'idExec1': steps_part1[i].test_execution.id,
+                      'idExec2': steps_part2[i].test_execution.id,
+                      }).json()
             vrt = VRTElem(response['report']['idImg1'], response['report']['idImg2'], response['report']['imageDiff'])
             print(response['report']['imageDiff'])
             imgs_diffs.append(vrt)
