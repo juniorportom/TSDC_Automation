@@ -33,7 +33,7 @@ def load_scripts(request):
     script = request.GET.get('scripts', -1)
     script = int(script)
     app_id = request.GET.get('app')
-    all_scripts = ApplicationScript.objects.filter(application__in=app_id).order_by('name')
+    all_scripts = ApplicationScript.objects.filter(application_id=app_id).order_by('name')
 
     context = {
         'searchParams': {
@@ -49,7 +49,7 @@ def load_execs(request):
     exc = request.GET.get('execs', -1)
     exc = int(exc)
     script_id = request.GET.get('script')
-    all_execs = TestExecution.objects.filter(script__in=script_id).filter(status='S').order_by('id')
+    all_execs = TestExecution.objects.filter(script_id=script_id).filter(status='S').order_by('id')
 
     context = {
         'searchParams': {
