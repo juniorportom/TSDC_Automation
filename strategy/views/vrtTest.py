@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.shortcuts import render
 import json
+import os
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -137,7 +138,7 @@ def load_diffs(request):
             steps_part2 = StepImage.objects.filter(id__in=steps2)
 
         for i in range(len(steps_part1)):
-            response =  requests.post('http://localhost:8080/compare-images',
+            response =  requests.post(os.environ["VRT_API_URL"],
                 data={'image1': steps_part1[i].get_absolute_s3_img_url(),
                     'image2': steps_part2[i].get_absolute_s3_img_url(),
                     'idImg1': steps_part1[i].id,
