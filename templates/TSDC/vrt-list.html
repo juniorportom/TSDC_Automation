@@ -54,7 +54,7 @@
                     <div class="col-md-4">
                         <div class="w-100">
                            <h6 class="w-100"><b>Creada el: </b> {{regression.create_at}}</h6>
-                           <h6 class="w-100"><b>Mismas dimenciones: </b>{{ regression.data.isSameDimensions }}</h6>
+                           <h6 class="w-100"><b>Mismas dimensiones: </b>{{ regression.data.isSameDimensions }}</h6>
                             <h6 class="w-100"><b>Diferencias: </b> Alto: {{ regression.data.dimensionDifference.height }} Ancho: {{ regression.data.dimensionDifference.width }}</h6>
                             <h6 class="w-100"><b>Porcentaje de diferencia: </b> {{ regression.data.misMatchPercentage }}%</h6>
                             {% if regression.data.misMatchPercentage > '10' %}
