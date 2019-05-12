@@ -138,7 +138,7 @@ def load_diffs(request):
                       'idExec1': steps_part1[i].test_execution.id,
                       'idExec2': steps_part2[i].test_execution.id,
                       }).json()
-            vrt = VRTElem(response['report']['idImg1'], response['report']['idImg2'], response['report']['imageDiff'])
+            vrt = VRTElem(response['report']['idImg1'], response['report']['idImg2'], response['report']['imageDiff'], response['data'])
             print(response['report']['imageDiff'])
             imgs_diffs.append(vrt)
 
@@ -150,16 +150,18 @@ def load_diffs(request):
 
 
 class VRTElem:
-    def __init__(self, id1, id2, img):
+    def __init__(self, id1, id2, img, datadiff):
         self.id1 = id1
         self.id2 = id2
         self.img = img
+        self.datadiff = datadiff
 
 
 def saveVRT(request):
     steps1 = request.GET.getlist('steps')
     steps2 = request.GET.getlist('steps2')
     url_diff = request.GET.getlist('diff')
+    data_diff = request.GET.getlist('datadiff')
 
     if steps1:
         for i in range(len(steps1)):
@@ -169,6 +171,7 @@ def saveVRT(request):
             vrtTest.step_image_a = img1
             vrtTest.step_image_b = img2
             vrtTest.image_diff = url_diff[i]
+            vrtTest.data = data_diff[i]
             vrtTest.save()
 
     return HttpResponseRedirect('/strategy/vrt-test-list/')
@@ -179,3 +182,12 @@ class VrtList(ListView):
     template_name = 'TSDC/vrt-list.html'
     context_object_name = 'regressions'
     paginate_by = 20
+
+    def get_queryset(self):
+        object_list_2 = self.model.objects.all()
+        object_list = []
+        for obj in object_list_2:
+            obj.data = json.loads(obj.data)
+            object_list.append(obj)
+
+        return object_list

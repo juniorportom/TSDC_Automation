@@ -48,10 +48,10 @@ function compareImgs(req, res) {
     console.log('parametros: ', params.image1, params.image2, params.idImg1, params.idImg2);
     let name = report.idExec1 + '_' + report.idImg1 + '_' + report.idExec2 + '_' + report.idImg2 + '_' + new Date().getTime() + '.png';
     console.log('este es el nombre: ' + name);
-    let pathDownlodas = 'app/uploads/downloads/';
+    let pathDownloads = 'app/uploads/downloads/';
     let pathConverted = 'app/uploads/reports/';
-    //download(report.image1, pathDownlodas + 'a_' + nameUrlFile(report.image1), {});
-    //download(report.image2, pathDownlodas + 'b_' + nameUrlFile(report.image2), {});
+    //download(report.image1, pathDownloads + 'a_' + nameUrlFile(report.image1), {});
+    //download(report.image2, pathDownloads + 'b_' + nameUrlFile(report.image2), {});
 
     var s3Client = new Minio.Client({
         endPoint:  'URL_AMAZON',
@@ -78,9 +78,7 @@ function compareImgs(req, res) {
     };
 
     var metaData = {
-        'Content-Type': 'application/octet-stream',
-        'X-Amz-Meta-Testing': 1234,
-        'example': 5678
+        "x-amz-acl": "public-read"
     }
 
     let image1 = 'steps/'+ report.idExec1 + '/' + nameUrlFile(report.image1);
@@ -100,10 +98,10 @@ function compareImgs(req, res) {
                 return res.status(500).send({ message: 'fail' });
             }
             console.log('success');
-            //ResCompare.getDiff(pathDownlodas + 'a_' + nameUrlFile(report.image1), pathDownlodas + 'b_' + nameUrlFile(report.image2), imageDiff);
+            //ResCompare.getDiff(pathDownloads + 'a_' + nameUrlFile(report.image1), pathDownloads + 'b_' + nameUrlFile(report.image2), imageDiff);
 
 
-            compare(pathDownlodas + 'a_' + nameUrlFile(report.image1), pathDownlodas + 'b_' + nameUrlFile(report.image2), options, function(err, data) {
+            compare(pathDownloads + 'a_' + nameUrlFile(report.image1), pathDownloads + 'b_' + nameUrlFile(report.image2), options, function(err, data) {
                 if (err) {
                     console.log('error compare: ', err);
                 } else {
@@ -116,24 +114,18 @@ function compareImgs(req, res) {
                             console.log('error en el stream de archivo: ', err)
                             return res.status(500).send({ message: 'fail' });
                         }
-                        s3Client.putObject('tsdc-automation.media', 'vrt/' + name, fileStream, function(err, etag) {
+                        s3Client.putObject('tsdc-automation.media', 'vrt/' + name, fileStream, metaData, function(err, etag) {
                             fileStream.destroy();
                             if(err){
                                 console.log('error en la subida: ', err, etag) // err should be null
                                 return res.status(500).send({ message: 'fail' });
                             }else
                             {
-                                s3Client.presignedUrl('GET', 'tsdc-automation.media', 'vrt/' + name, 24*60*60, function(err, presignedUrl) {
-                                    if (err){
-                                        console.log('error en generacion de URL: ', err)
-                                        return res.status(500).send({ message: 'fail' });
-                                    }
-                                    report.imageDiff = presignedUrl;
-                                    return res.status(200).send({ report: report,
-                                        data: JSON.stringify(data)});
-                                })
+                                report.imageDiff = 'https://s3.us-east-2.amazonaws.com/tsdc-automation.media/vrt/' + name;
+                                return res.status(200).send({ report: report,
+                                    data: JSON.stringify(data)});
                             }
-                       })
+                       });
                     });
 
                 }
@@ -142,9 +134,9 @@ function compareImgs(req, res) {
         })
     })
 
-    //var data = getDiff('a_' + nameUrlFile(report.image1), 'b_' + nameUrlFile(report.image2), pathDownlodas, pathConverted, name);
+    //var data = getDiff('a_' + nameUrlFile(report.image1), 'b_' + nameUrlFile(report.image2), pathDownloads, pathConverted, name);
     //setTimeout(function() {
-    //    ResCompare.getDiff(pathDownlodas + 'a_' + nameUrlFile(report.image1), pathDownlodas + 'b_' + nameUrlFile(report.image2), pathConverted + name);
+    //    ResCompare.getDiff(pathDownloads + 'a_' + nameUrlFile(report.image1), pathDownloads + 'b_' + nameUrlFile(report.image2), pathConverted + name);
      //   //console.log(data);
      //   report.imageDiff = name;
       //  return res.status(200).send({ report: report });

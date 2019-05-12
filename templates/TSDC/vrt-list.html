@@ -24,21 +24,49 @@
             <div class="card-body">
               <div class="col-md-12 mx-auto">
                 <div class="row">
-                   <div class="col-md-3">
-                       <h6 class="w-100 mb-2">Imagen 1</h6>
-                       <img src="{{regression.step_image_a.get_absolute_img_url}}" class="w-100 mt-2">
-                  </div>
-                  <div class="col-md-3">
-                      <h6 class="w-100 mb-2">Imagen 2</h6>
-                      <img src="{{regression.step_image_b.get_absolute_img_url}}" class="w-100 mt-2">
-                  </div>
-                    <div class="col-md-3">
-                        <h6 class="w-100 mb-2">Diferencias</h6>
-                        <img src="{{regression.get_absolute_img_diff_url}}" class="w-100 mt-2">
+                   <div class="col-md-4">
+                       <div class="w-100">
+                           <h6 class="w-100"><b>Aplicación: </b>{{ regression.step_image_a.test_execution.test_plan.test_strategy.application_version }}</h6>
+                           <h6 class="w-100"><b>Estrategia: </b>{{ regression.step_image_a.test_execution.test_plan.test_strategy }}</h6>
+                           <h6 class="w-100"><b>Prueba: </b>{{ regression.step_image_a.test_execution.test_plan }}</h6>
+                           <h6 class="w-100"><b>Script: </b>{{ regression.step_image_a.test_execution.script}}</h6>
+                           <h6 class="w-100"><b>Iteración: </b>{{ regression.step_image_a.test_execution.iteration}}</h6>
+                       </div>
+                       <div class="w-100">
+                           <h6 class="w-100 mb-1"><b>Imagen: </b> {{ regression.step_image_a.image_name }}</h6>
+                           <img src="{{regression.step_image_a.get_absolute_img_url}}" class="w-75 mt-2">
+                       </div>
 
                   </div>
-                    <div class="col-md-3">
-
+                  <div class="col-md-4">
+                      <div class="w-100">
+                           <h6 class="w-100"><b>Aplicación: </b>{{ regression.step_image_b.test_execution.test_plan.test_strategy.application_version }}</h6>
+                           <h6 class="w-100"><b>Estrategia: </b>{{ regression.step_image_b.test_execution.test_plan.test_strategy }}</h6>
+                           <h6 class="w-100"><b>Prueba: </b>{{ regression.step_image_b.test_execution.test_plan }}</h6>
+                           <h6 class="w-100"><b>Script: </b>{{ regression.step_image_b.test_execution.script}}</h6>
+                           <h6 class="w-100"><b>Iteración: </b>{{ regression.step_image_b.test_execution.iteration}}</h6>
+                       </div>
+                       <div class="w-100">
+                           <h6 class="w-100 mb-1"><b>Imagen: </b> {{ regression.step_image_b.image_name }}</h6>
+                           <img src="{{regression.step_image_b.get_absolute_img_url}}" class="w-75 mt-2">
+                       </div>
+                  </div>
+                    <div class="col-md-4">
+                        <div class="w-100">
+                           <h6 class="w-100"><b>Creada el: </b> {{regression.create_at}}</h6>
+                           <h6 class="w-100"><b>Mismas dimenciones: </b>{{ regression.data.isSameDimensions }}</h6>
+                            <h6 class="w-100"><b>Diferencias: </b> Alto: {{ regression.data.dimensionDifference.height }} Ancho: {{ regression.data.dimensionDifference.width }}</h6>
+                            <h6 class="w-100"><b>Porcentaje de diferencia: </b> {{ regression.data.misMatchPercentage }}%</h6>
+                            {% if regression.data.misMatchPercentage > '10' %}
+                                <span class="s_fail span_size ">Fallido</span>
+                            {% else %}
+                                <span class="s_eje span_size">Exitoso</span>
+                            {% endif %}
+                       </div>
+                       <div class="w-100">
+                           <h6 class="w-100 mb-1"><b>Diferencias</b></h6>
+                           <img src="{{regression.get_absolute_img_diff_url}}" class="w-75 mt-2">
+                       </div>
                   </div>
                 </div>
                 </div>
@@ -81,23 +109,4 @@
       </nav>
     {% endif %}
 </main>
-    <div id="popup" class="modal fade" role="dialog">
-    </div>
-<script>
-   /* $(document).ready(function () {
-        $('#id_descargar').click(function () {
-            $('#descargar_modal').modal();
-        });
-    });*/
-
-    function abrir_modal(url)
-{
-        $('#popup').load(url, function()
-        {
-                $(this).modal('show');
-        });
-        return false;
-}
-
-</script>
 {% endblock %}
