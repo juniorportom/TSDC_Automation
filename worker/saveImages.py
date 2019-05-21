@@ -31,4 +31,4 @@ def save_s3_img(exc_id, img, path):
     print("Se alamcena en s3 imagen: " + str(img))
 
 
-save_images(26, '/Users/juniorportom/projects/uniandes/pruebas_automaticas/talleres/regression/VRT_colorPallete/cypress/screenshots/taller2/login_spec.js/')
+#save_images(26, '/Users/juniorportom/projects/uniandes/pruebas_automaticas/talleres/regression/VRT_colorPallete/cypress/screenshots/taller2/login_spec.js/')
