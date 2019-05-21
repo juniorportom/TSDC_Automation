@@ -9,7 +9,8 @@
         <h3 class="card-title">Pruebas VRT</h3>
         <form id="vrtForm" class="searchForm" method="GET" data-scripts-url="{% url 'ajax_load_scripts' %}" data-execs-url="{% url 'ajax_load_execs' %}"
               data-steps-url="{% url 'ajax_load_steps' %}"  data-steps2-url="{% url 'ajax_load_steps2' %}"
-              data-imgs-url="{% url 'ajax_load_imgs' %}" data-imgs2-url="{% url 'ajax_load_imgs2' %}" novalidate>
+              data-imgs-url="{% url 'ajax_load_imgs' %}" data-imgs2-url="{% url 'ajax_load_imgs2' %}"
+              data-diff-url="{% url 'ajax_load_diff' %}" action="{% url 'vrt-test-create'%}" novalidate>
         <div class="row">
             <div class="col-md-6">
                 <label class="text-center w-75" for="apps">Aplicación:</label>
@@ -32,7 +33,7 @@
                 <div id="id_exec2"></div>
             </div>
         </div>
-        <div class="row mt-2">
+        <div id="id_imgs_container" class="row mt-2" >
             <div class="col-md-6">
                 <div id="id_step"></div>
             </div>
@@ -41,21 +42,19 @@
             </div>
         </div>
         <div class="row mt-2">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div id="id_load_imgs1"></div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div id="id_load_imgs2"></div>
             </div>
-            <div class="col-md-3">
-
+            <div class="col-md-4">
+                <div id="id_load_diff"></div>
             </div>
-            <div class="col-md-3">
 
-            </div>
         </div>
 
-          <input type="submit" class="btn btn-primary btn-block w-25 mt-3" value="Buscar">
+          <input type="submit" class="btn btn-primary btn-block w-25 mt-3" value="Guardar">
         </form>
       </div>
     </div>

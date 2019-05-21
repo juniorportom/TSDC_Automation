@@ -265,3 +265,10 @@ form li {
 .w-40{
     width: 38%;
 }
+
+.span_size{
+    border-radius: 5px;
+    padding: 2% 10%;
+    color: #fff;
+    font-size: 70%;
+}

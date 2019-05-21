@@ -53,7 +53,7 @@ class TestStrategyDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['plans'] = TestPlan.objects.filter(test_strategy=self.object)
-        version = get_object_or_404(ApplicationVersion, id=self.object.id)
+        version = get_object_or_404(ApplicationVersion, id=self.object.application_version.id)
         context['application'] = get_object_or_404(Application, id=version.application.id)
         return context
 

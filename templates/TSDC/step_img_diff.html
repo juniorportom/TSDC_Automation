@@ -1,0 +1,7 @@
+{% load staticfiles %}
+<h5 class="w-75 h-50">Diferencias</h5>
+{% for diff in diffs %}
+    <img src="{{diff.img}}" class="w-100 mt-2">
+    <input value="{{diff.img}}" type="hidden" name="diff">
+    <input value="{{diff.datadiff}}" type="hidden" name="datadiff">
+{% endfor %}
